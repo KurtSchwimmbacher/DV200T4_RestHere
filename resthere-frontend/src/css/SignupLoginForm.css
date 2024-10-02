@@ -1,0 +1,15 @@
+.form-container{
+    background-color: #FFFFFF7A;
+    border: 1px solid #FFFFFF1F;
+    backdrop-filter: blur(20px);
+
+    padding: 25px;
+    border-radius: 50px;
+    
+    text-align: left;
+}
+
+
+.login-signup-title{
+    text-align: center;
+}

@@ -4,11 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-
+import SignupLoginForm from '../components/SignupLoginForm';
 
 
 // link css
 import '../css/Journal.css';
+
 
 const SignupLogin = () => {
   return (
@@ -21,6 +22,7 @@ const SignupLogin = () => {
                 </Col>
             </Row>
         </Container>
+        <SignupLoginForm />
     </div>
   );
 }
