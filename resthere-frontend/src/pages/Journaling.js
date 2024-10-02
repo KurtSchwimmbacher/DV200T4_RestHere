@@ -8,16 +8,16 @@ import Col from 'react-bootstrap/Col';
 
 
 // link css
-import '../css/Home.css';
+import '../css/Journal.css';
 
 const Journaling = () => {
   return (
-    <div>
+    <div className='journal-container'>
         <Container>
             <Row>
                 <Col className='home-title'>
-                    <h1 className='title-1'>We want you to </h1>
-                    <h1 className='title-2'>Rest <strong className='rest-here'>Here</strong></h1>
+                    <h1 className='title-1'>Write about your </h1>
+                    <h1 className='title-2'><strong className='rest-here'>Day</strong></h1>
                 </Col>
             </Row>
         </Container>
