@@ -15,9 +15,9 @@ const Home = () => {
     <div className="home-container">
         <Container>
             <Row>
-                <Col>
-                    <h1>We want you to </h1>
-                    <h1>Rest Here</h1>
+                <Col className='home-title'>
+                    <h1 className='title-1'>We want you to </h1>
+                    <h1 className='title-2'>Rest <strong className='rest-here'>Here</strong></h1>
                 </Col>
             </Row>
         </Container>
