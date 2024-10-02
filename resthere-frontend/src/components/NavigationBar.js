@@ -1,30 +1,62 @@
-// src/components/Navbar.js
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';  // Use Link for internal navigation
 
+// Import the logo
+import logo from '../assets/Logo.svg';
+
+// link css
+import '../css/NavigationBar.css';
+
 function NavigationBar() {
+  const [activeTab, setActiveTab] = useState('login'); // State to manage active tab
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand as={Link} to="/">RestHere</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          {/* Add the image logo */}
+          <img 
+            src={logo} 
+            alt="RestHere Logo" 
+            style={{ height: '32px', marginRight: '10px' }} 
+          />
+          Rest <strong className='rest-here-nav'>Here</strong>
+        </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
+          <Nav className='navbar-links me-auto'>
+            <Nav.Link as={Link} to="/journaling">Journal</Nav.Link>
             <Nav.Link as={Link} to="/resources">Resources</Nav.Link>
-            <NavDropdown title="More" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/signup-login">Sign Up / Login</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/chat">Chat</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/journaling">Journaling</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/forum">Support Forum</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/settings-profile">Settings / Profile</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/admin-panel">Admin Panel</NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link as={Link} to="/forum">Forum</Nav.Link>
+            <Nav.Link as={Link} to="/chat">Chat</Nav.Link>
           </Nav>
+
+          {/* Button group for Login and Sign Up */}
+          <ButtonGroup className='login-signup-btn'>
+            <Button 
+              as={Link} 
+              to="/signup-login" 
+              variant={activeTab === 'login' ? 'primary' : 'outline-primary'} 
+              onClick={() => setActiveTab('login')}
+            >
+              Login
+            </Button>
+            <Button 
+              as={Link} 
+              to="/signup-login" 
+              variant={activeTab === 'signup' ? 'primary' : 'outline-primary'} 
+              onClick={() => setActiveTab('signup')}
+            >
+              Sign Up
+            </Button>
+          </ButtonGroup>
+
         </Navbar.Collapse>
       </Container>
     </Navbar>
