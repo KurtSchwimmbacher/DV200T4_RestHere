@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';  // Use Link for internal navigation
 
-function BasicExample() {
+function NavigationBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -31,4 +31,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default NavigationBar;
