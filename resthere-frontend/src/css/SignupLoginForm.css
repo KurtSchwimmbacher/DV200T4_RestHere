@@ -12,4 +12,31 @@
 
 .login-signup-title{
     text-align: center;
+    
+    font-family: "Montserrat Alternates", system-ui;
+    font-weight: 300;
+}
+
+.submit-form-btn{
+    width: 40%;
+    margin-left: 30%;
+
+    background-color: #D1B089 !important; 
+    color: #000000 !important;
+    border: none !important;
+    border-radius: 50px !important;
+
+    font-family: "Montserrat Alternates", system-ui;
+    font-weight: 300;
+}
+
+.toggle-form{
+    width: 40%;
+    margin-left: 30%;
+}
+
+.form-field{
+    
+    font-family: "Montserrat Alternates", system-ui !important;
+    font-weight: 300;
 }

@@ -41,12 +41,12 @@ const SignupLoginForm = () => {
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <div className="form-container mt-5">
-            <h2 className='login-signup-title'>{isLogin ? 'Login' : 'Sign Up'}</h2>
+            <h1 className='login-signup-title'>{isLogin ? 'Login' : 'Sign Up'}</h1>
             <Form onSubmit={handleSubmit}>
 
             {/* Username field for signup only */}
               {!isLogin && (
-                <Form.Group className='mt-3 mb-3' controlId="formBasicUsername">
+                <Form.Group className='mt-3 mb-3 form-field' controlId="formBasicUsername">
                   <Form.Label>Username</Form.Label>
                   <Form.Control 
                     type="text" 
@@ -60,7 +60,7 @@ const SignupLoginForm = () => {
               )}
 
               {/* Common email field for both login and signup */}
-              <Form.Group className='mt-3 mb-3' controlId="formBasicEmail">
+              <Form.Group className='mt-3 mb-3 form-field' controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control 
                   type="email" 
@@ -75,7 +75,7 @@ const SignupLoginForm = () => {
 
 
               {/* Password field */}
-              <Form.Group className='mt-3 mb-3' controlId="formBasicPassword">
+              <Form.Group className='mt-3 mb-3 form-field' controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control 
                   type="password" 
@@ -89,7 +89,7 @@ const SignupLoginForm = () => {
 
               {/* Confirm Password field for signup only */}
               {!isLogin && (
-                <Form.Group className='mt-3 mb-3' controlId="formBasicConfirmPassword">
+                <Form.Group className='mt-3 mb-3 form-field' controlId="formBasicConfirmPassword">
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control 
                     type="password" 
@@ -102,12 +102,12 @@ const SignupLoginForm = () => {
                 </Form.Group>
               )}
 
-              <Button variant="success" type="submit">
+              <Button className='submit-form-btn' variant="success" type="submit">
                 {isLogin ? 'Login' : 'Sign Up'}
               </Button>
 
               {/* Toggle between login and signup */}
-              <p className="toggle-form">
+              <p className="toggle-form mt-3">
                 {isLogin ? 'Don’t have an account?' : 'Already have an account?'}{' '}
                 <span onClick={() => setIsLogin(!isLogin)}>
                   {isLogin ? 'Sign Up' : 'Login'}
