@@ -32,3 +32,34 @@
     font-family: "Montserrat Alternates", system-ui;
     font-weight: 300;
 }
+
+.filter-sort-row{
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.filter-pill{
+    width: 100%;
+    border-radius: 25px !important;
+    background-color: white !important;
+    color: black !important;
+    padding: 5px !important;
+    margin-right: 5vw !important;
+    font-family: "Playwrite US Trad", system-ui !important;
+    font-optical-sizing: auto;
+}
+
+.filter-pill-con{
+    margin-right: 2%;
+}
+
+
+.dropdown-toggle{
+    border: none !important;
+}
+
+.sort-dropdown-col{
+    display: flex;
+    justify-content: flex-end;
+}

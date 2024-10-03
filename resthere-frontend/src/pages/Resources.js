@@ -11,6 +11,8 @@ import Col from 'react-bootstrap/Col';
 import '../css/Journal.css';
 import SearchBar from '../components/SearchBar';
 import ResourceCard from '../components/ResourceCard';
+import FilterPills from '../components/FilterPills';
+import SortDropdown from '../components/SortDropdown';
 
 const Resources= () => {
   return (
@@ -22,11 +24,22 @@ const Resources= () => {
                     <h1 className='title-2'><strong className='rest-here'>Reading</strong></h1>
                 </Col>
             </Row>
+            {/* search bar row */}
             <Row>
               <Col>
                 <SearchBar />
               </Col>
             </Row>
+            {/* filter sort row */}
+            <Row className='filter-sort-row mt-3 mb-3'>
+              <Col>
+                <FilterPills />
+              </Col>
+              <Col className='sort-dropdown-col'>
+                <SortDropdown />
+              </Col>
+            </Row>
+            {/* card row */}
             <Row className='mt-3'>
               <Col>
                 <ResourceCard />
