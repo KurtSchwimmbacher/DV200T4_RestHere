@@ -14,3 +14,16 @@
   text-align: center;
   padding-bottom: 50px; /* Ensure space at the bottom for content */
 }
+
+
+.calender-con{
+  width: 100%;
+  height: auto;
+  
+  background-color: #FFFFFF7A;
+  border: 1px solid #FFFFFF1F;
+  backdrop-filter: blur(40px);
+  padding: 3%;
+  border-radius: 50px;
+  
+}

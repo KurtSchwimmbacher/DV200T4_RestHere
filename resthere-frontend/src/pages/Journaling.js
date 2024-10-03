@@ -4,15 +4,16 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-
+import Calender from '../components/Calender.js';
 
 
 // link css
 import '../css/Journal.css';
 
+
 const Journaling = () => {
   return (
-    <div className='journal-container'>
+    <div className='journal-container mt-5'>
         <Container>
             <Row>
                 <Col className='home-title'>
@@ -20,7 +21,13 @@ const Journaling = () => {
                     <h1 className='title-2'><strong className='rest-here'>Day</strong></h1>
                 </Col>
             </Row>
+            <Row>
+              <Col>
+                <Calender />
+              </Col>
+            </Row>
         </Container>
+        
     </div>
   );
 }
