@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 
 // link css
 import '../css/Journal.css';
+import ChatOffCanvas from '../components/ChatOffCanvas';
 
 const Chat= () => {
   return (
@@ -21,6 +22,7 @@ const Chat= () => {
                 </Col>
             </Row>
         </Container>
+        <ChatOffCanvas />
     </div>
   );
 }
