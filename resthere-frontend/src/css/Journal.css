@@ -22,8 +22,33 @@
   
   background-color: #FFFFFF7A;
   border: 1px solid #FFFFFF1F;
-  backdrop-filter: blur(40px);
+  backdrop-filter: blur(60px);
   padding: 3%;
   border-radius: 50px;
   
+}
+
+.fc-daygrid-day-number {
+  color: black !important;
+  text-decoration: none !important;
+}
+
+.fc-daygrid-event-harness{
+  width: 80%;
+  margin-left: 10%;
+  padding: 10px;
+  background-color: #A9C4A0 !important;
+  border-radius: 25px;
+}
+
+.fc-event-today{
+  color: white !important;
+  text-decoration: none !important;
+  font-family: "Montserrat Alternates", system-ui;
+  font-weight: 300;
+}
+
+.fc-event-today:hover{
+  cursor: pointer;
+  background-color: #A9C4A0 !important;
 }

@@ -13,12 +13,12 @@ import '../css/Journal.css';
 
 const Journaling = () => {
   return (
-    <div className='journal-container mt-5'>
+    <div className='journal-container'>
         <Container>
             <Row>
                 <Col className='home-title'>
                     <h1 className='title-1'>Write about your </h1>
-                    <h1 className='title-2'><strong className='rest-here'>Day</strong></h1>
+                    <h1 className='title-2 mb-4'><strong className='rest-here'>Day</strong></h1>
                 </Col>
             </Row>
             <Row>

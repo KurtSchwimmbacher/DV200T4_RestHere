@@ -9,6 +9,8 @@ import Col from 'react-bootstrap/Col';
 
 // link css
 import '../css/Journal.css';
+import SearchBar from '../components/SearchBar';
+import ResourceCard from '../components/ResourceCard';
 
 const Resources= () => {
   return (
@@ -19,6 +21,25 @@ const Resources= () => {
                     <h1 className='title-1'>Do some</h1>
                     <h1 className='title-2'><strong className='rest-here'>Reading</strong></h1>
                 </Col>
+            </Row>
+            <Row>
+              <Col>
+                <SearchBar />
+              </Col>
+            </Row>
+            <Row className='mt-3'>
+              <Col>
+                <ResourceCard />
+              </Col>
+              <Col>
+                <ResourceCard />
+              </Col>
+              <Col>
+                <ResourceCard />
+              </Col>
+              <Col>
+                <ResourceCard />
+              </Col>
             </Row>
         </Container>
     </div>
