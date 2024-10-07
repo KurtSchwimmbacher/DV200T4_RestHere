@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col';
 // link css
 import '../css/Journal.css';
 import ChatOffCanvas from '../components/ChatOffCanvas';
+import ChatContainer from '../components/ChatContainer';
 
 const Chat= () => {
   return (
@@ -20,6 +21,11 @@ const Chat= () => {
                     <h1 className='title-1'>Get in </h1>
                     <h1 className='title-2'><strong className='rest-here'>Touch</strong></h1>
                 </Col>
+            </Row>
+            <Row>
+              <Col>
+                <ChatContainer />
+              </Col>
             </Row>
         </Container>
         <ChatOffCanvas />

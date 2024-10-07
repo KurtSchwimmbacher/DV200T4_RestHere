@@ -1,28 +1,18 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+// src/components/ChatOffCanvas.js
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-function ChatOffCanvas({ name, ...props }) {
-  const [show, setShow] = useState(false);
+import ChatMessageCard from './ChatMessageCard';
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+function ChatOffCanvas({ show, handleClose }) {
   return (
-    <>
-      <Button variant="primary" onClick={handleShow} className="me-2">
-        {name}
-      </Button>
-      <Offcanvas show={show} onHide={handleClose} placement='end' name='end'>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
+    <Offcanvas show={show} onHide={handleClose} placement='end'>
+      <Offcanvas.Header closeButton>
+        <Offcanvas.Title>Your Profile</Offcanvas.Title>
+      </Offcanvas.Header>
+      <Offcanvas.Body>
+        <ChatMessageCard />
+      </Offcanvas.Body>
+    </Offcanvas>
   );
 }
 

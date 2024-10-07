@@ -63,3 +63,7 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.chat-expand-arrow:hover{
+    cursor: pointer;
+}
