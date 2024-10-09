@@ -51,3 +51,10 @@
     color: #000000 !important;
     
 }
+
+/* secondary button styles */
+.btn-secondary{
+    background-color: #A9C4A0 !important;
+    border: none !important;
+    border-radius: 50px !important;
+}

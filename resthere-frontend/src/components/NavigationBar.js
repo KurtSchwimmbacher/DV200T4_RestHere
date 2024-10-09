@@ -16,12 +16,13 @@ import '../css/NavigationBar.css';
 function NavigationBar() {
   const [activeTab, setActiveTab] = useState('login'); // State to manage active tab
   const user = useSelector((state) => state.user);
+  console.log(user)
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          {/* Add the image logo */}
+          
           <img 
             src={logo} 
             alt="RestHere Logo" 
@@ -41,11 +42,11 @@ function NavigationBar() {
 
           {/* Button group for Login/Sign Up or Account */}
           <ButtonGroup className='login-signup-btn'>
-            {user ? (
-              <Button 
+            {user.username ? (
+              <Button  
                 as={Link} 
-                to="/account" 
-                variant="primary"
+                to="/settings-profile" 
+                variant="secondary"
               >
                 Account
               </Button>

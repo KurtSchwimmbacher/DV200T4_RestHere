@@ -2,12 +2,11 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 
-import SortDropdown from '../components/SortDropdown';
 
 // Link CSS if necessary
 import '../css/Resources.css';
 
-const FilterPills = () => {
+const FilterPills = (page) => {
   return (
     <Nav variant="pills" className="static-pills">
       <Nav.Item className='filter-pill-con'>

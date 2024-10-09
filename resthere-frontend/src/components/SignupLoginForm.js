@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+
 import '../css/SignupLoginForm.css';
 
 const SignupLoginForm = () => {
@@ -41,7 +42,7 @@ const SignupLoginForm = () => {
           },
         });
 
-        window.location.href = '/';
+        // window.location.href = '/';
         localStorage.setItem('token', response.data.token);
       } else {
         if (formData.password !== formData.confirmPassword) {
