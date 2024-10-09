@@ -1,24 +1,38 @@
+/* chat off canvas */
+.chat-off-canvas{
+  background-color: #FFFFFF7A !important;
+  border: 1px solid #FFFFFF1F !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+
+/* chat message card */
 .chat-message-card {
     max-width: 100%;
     border: none !important;
     border-bottom: 2px solid #afafaf !important;
     border-radius: 0px !important;
+    background-color: #ffffff00 !important;
   }
   
   .profile-image {
     width: 50px;
     height: 50px;
-    border-radius: 50%; /* Circular image like WhatsApp */
+    border-radius: 50%; 
     object-fit: cover;
+  }
+
+  .message-title{
+    color: #000000 !important;
   }
   
   .last-message-content {
-    color: #afafaf; /* Adjust text color if needed */
+    color: #000000; 
   }
   
 
 .icons-container {
-    margin-right: 15px; /* Space between icons and card edge */
+    margin-right: 15px; 
   }
   
   .icon {
@@ -26,14 +40,15 @@
     margin-left: 10px;
     cursor: pointer;
     transition: color 0.3s ease;
+    color: #000000;
   }
   
   .heart-icon:hover {
     color: red;
-    content: url('https://icons.getbootstrap.com/assets/icons/heart-fill.svg'); /* Filled heart icon */
+    content: url('https://icons.getbootstrap.com/assets/icons/heart-fill.svg'); 
   }
   
   .trash-icon:hover {
-    color: #dc3545; /* Red color for trash icon */
-    content: url('https://icons.getbootstrap.com/assets/icons/trash-fill.svg'); /* Filled trash icon */
+    color: #dc3545; 
+    content: url('https://icons.getbootstrap.com/assets/icons/trash-fill.svg'); 
   }

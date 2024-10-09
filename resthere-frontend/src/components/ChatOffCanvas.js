@@ -3,9 +3,11 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import ChatMessageCard from './ChatMessageCard';
 
+import '../css/Chat.css';
+
 function ChatOffCanvas({ show, handleClose }) {
   return (
-    <Offcanvas show={show} onHide={handleClose} placement='end'>
+    <Offcanvas className='chat-off-canvas' show={show} onHide={handleClose} placement='end'>
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Your Profile</Offcanvas.Title>
       </Offcanvas.Header>

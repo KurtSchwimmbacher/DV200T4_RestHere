@@ -1,7 +1,9 @@
 import Card from 'react-bootstrap/Card';
 import { Heart, Trash } from 'react-bootstrap-icons'; // Import Bootstrap icons
-import '../css/Chat.css';
+
 import ProfileImage from '../assets/Profile.jpg';
+
+import '../css/Chat.css';
 
 function ChatMessageCard() {
   return (
@@ -14,7 +16,7 @@ function ChatMessageCard() {
           className="profile-image"
         />
         <Card.Body className="ml-3">
-          <Card.Title>Card Title</Card.Title>
+          <Card.Title className='message-title'>Card Title</Card.Title>
           <Card.Text className='last-message-content'>
             Last Message
           </Card.Text>
