@@ -1,0 +1,39 @@
+.chat-message-card {
+    max-width: 100%;
+    border: none !important;
+    border-bottom: 2px solid #afafaf !important;
+    border-radius: 0px !important;
+  }
+  
+  .profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Circular image like WhatsApp */
+    object-fit: cover;
+  }
+  
+  .last-message-content {
+    color: #afafaf; /* Adjust text color if needed */
+  }
+  
+
+.icons-container {
+    margin-right: 15px; /* Space between icons and card edge */
+  }
+  
+  .icon {
+    font-size: 1.5rem;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .heart-icon:hover {
+    color: red;
+    content: url('https://icons.getbootstrap.com/assets/icons/heart-fill.svg'); /* Filled heart icon */
+  }
+  
+  .trash-icon:hover {
+    color: #dc3545; /* Red color for trash icon */
+    content: url('https://icons.getbootstrap.com/assets/icons/trash-fill.svg'); /* Filled trash icon */
+  }

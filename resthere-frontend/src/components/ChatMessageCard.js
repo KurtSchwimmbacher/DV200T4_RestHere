@@ -1,18 +1,31 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Heart, Trash } from 'react-bootstrap-icons'; // Import Bootstrap icons
+import '../css/Chat.css';
+import ProfileImage from '../assets/Profile.jpg';
 
 function ChatMessageCard() {
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="left" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
+    <Card className='chat-message-card d-flex flex-row align-items-center justify-content-between'>
+      {/* Profile Image and Text */}
+      <div className='d-flex align-items-center'>
+        <Card.Img 
+          variant="left" 
+          src={ProfileImage} 
+          className="profile-image"
+        />
+        <Card.Body className="ml-3">
+          <Card.Title>Card Title</Card.Title>
+          <Card.Text className='last-message-content'>
+            Last Message
+          </Card.Text>
+        </Card.Body>
+      </div>
+      
+      {/* Icons on the right */}
+      <div className='icons-container d-flex'>
+        <Heart className='icon heart-icon' />
+        <Trash className='icon trash-icon' />
+      </div>
     </Card>
   );
 }
