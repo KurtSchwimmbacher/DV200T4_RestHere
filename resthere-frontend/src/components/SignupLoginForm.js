@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import '../css/SignupLoginForm.css';  // Link to your custom CSS
+
+// import axios 
+import axios from 'axios'; 
+
+// link css
+import '../css/SignupLoginForm.css';  
 
 const SignupLoginForm = () => {
   // State to toggle between login and signup
@@ -21,18 +26,60 @@ const SignupLoginForm = () => {
   };
 
   // Handle form submission (login or signup)
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isLogin) {
-      // Logic for login
-      console.log("Logging in with:", formData);
-    } else {
-      // Logic for signup (check if passwords match, etc.)
-      if (formData.password !== formData.confirmPassword) {
-        alert("Passwords do not match!");
-        return;
+  const handleSubmit  = async (e) => {
+    try {
+      e.preventDefault();
+      if (isLogin) {
+        // Logic for login
+        const response = await axios.post('http://localhost:5000/api/users/login', {
+          email: formData.email,
+          password: formData.password,
+        });
+         // Handle success response
+         console.log(response.data)
+        alert(response.data.message)
+        window.location.href = '/'; 
+
+        // Store the token in localStorage or sessionStorage
+        localStorage.setItem('token', response.data.token);
+
+      } else {
+        // Logic for signup (check if passwords match, etc.)
+        if (formData.password !== formData.confirmPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+
+        const response = await axios.post('http://localhost:5000/api/users/signup',{
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+        });
+
+        // handle success response
+        alert(response.data.msg);
+        // If signup is successful, clear the form:
+        setFormData({
+          email: '',
+          password: '',
+          username: '',
+          confirmPassword: '',
+        });
       }
-      console.log("Signing up with:", formData);
+  
+    } catch (error) {
+      // Handle error response
+      console.error("Error:", error);
+      alert(error.response?.data.msg || "An error occurred. Please try again.");  
+      
+      // clear form data
+      setFormData({
+        email: '',
+        password: '',
+        username: '',
+        confirmPassword: '',
+      });
     }
   };
 
