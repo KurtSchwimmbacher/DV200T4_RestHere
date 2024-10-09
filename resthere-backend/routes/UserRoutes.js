@@ -77,12 +77,14 @@ router.post('/login', async (req, res) => {
     try {
         // Find user by email
         const user = await User.findOne({ email });
+        console.log('User found:', user); // Debugging statement
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
         // Check password
         const isMatch = await bcrypt.compare(password, user.password);
+        console.log('Password match:', isMatch); // Debugging statement
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
@@ -90,12 +92,21 @@ router.post('/login', async (req, res) => {
         // Generate JWT token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        // Respond with success message and token
-        res.status(200).json({ message: 'Login Successful', token });
+        // Respond with success message, token, username, and admin status
+        res.status(200).json({ 
+            message: 'Login Successful', 
+            token,
+            user: {
+                username: user.username,
+                isAdmin: user.role === 'admin'
+            }
+        });
     } catch (error) {
+        console.error(error.message); // Log error details
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 
