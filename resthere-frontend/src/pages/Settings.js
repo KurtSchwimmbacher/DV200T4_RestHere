@@ -1,25 +1,31 @@
-// src/pages/Home.js
-import React from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { useDispatch, useSelector } from 'react-redux'; // Assuming you're using Redux for state management
+import { useDispatch, useSelector } from 'react-redux';
 
-import PostCard from '../components/PostCard';
+import PostContainer from '../components/PostContainer';
+import PostOffCanvas from '../components/PostOffCanvas'; // Import OffCanvas here
 import '../css/settingsProfile.css';
 
-
 const Settings = () => {
-  // Retrieve user data from Redux store (assuming user info is stored in the state)
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch({
-      type: 'LOGOUT'
-    });
+  // State for OffCanvas visibility and selected post data
+  const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const [selectedPost, setSelectedPost] = useState({ title: '', content: '' });
 
+  const handleShow = (postTitle = '', postContent = '') => {
+    setSelectedPost({ title: postTitle, content: postContent });
+    setShowOffCanvas(true);
+  };
+
+  const handleClose = () => setShowOffCanvas(false);
+
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT' });
     window.location.href = '/';
   };
 
@@ -44,8 +50,7 @@ const Settings = () => {
               className='profile-picture'
             />
             <h2>{user.username}</h2>
-            <p>{user.postsCount} {user.postsCount === 1 ? 'Post' : 'Posts'}</p> 
-            
+            <p>{user.postsCount} {user.postsCount === 1 ? 'Post' : 'Posts'}</p>
           </Col>
         </Row>
 
@@ -58,27 +63,27 @@ const Settings = () => {
 
         {/* Recent Posts Section */}
         <Row>
-          <Col>
+          <Col className='title-button-col'>
             <h2 className='recent-posts-title mt-5'>Recent Posts</h2>
+            <Button className='new-post-button' onClick={() => handleShow()}>Post</Button>
           </Col>
         </Row>
         <Row>
           <Col>
-            <PostCard title={"Post Title"} text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."} />
-          </Col>
-          <Col>
-            <PostCard title={"Post Title"} text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."} />
-          </Col>
-          <Col>
-            <PostCard title={"Post Title"} text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."} />
-          </Col>
-          <Col>
-            <PostCard title={"Post Title"} text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."} />
+            <PostContainer handleShow={handleShow} /> {/* Pass handleShow to PostContainer */}
           </Col>
         </Row>
       </Container>
+
+      {/* OffCanvas for New Post */}
+      <PostOffCanvas 
+        show={showOffCanvas} 
+        handleClose={handleClose} 
+        postTitle={selectedPost.title} 
+        postContent={selectedPost.content} 
+      />
     </div>
   );
-}
+};
 
 export default Settings;

@@ -8,7 +8,7 @@ import { Nav } from 'react-bootstrap';
 // Link CSS if necessary
 import '../css/Posts.css';
 
-const PostCard = ({ title, text }) => {
+const PostCard = ({ title, text,  handleShow  }) => {
   return (
     <Card className="custom-card">
       <div className="post-card-top">
@@ -22,7 +22,7 @@ const PostCard = ({ title, text }) => {
             </Nav.Item>
         </Nav>
 
-        <ArrowUpRight />
+        <ArrowUpRight onClick={() => handleShow(title, text)} />
         
       </div>
       <Card.Body className='resource-card-body'>
