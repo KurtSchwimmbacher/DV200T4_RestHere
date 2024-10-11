@@ -97,8 +97,10 @@ router.post('/login', async (req, res) => {
             message: 'Login Successful', 
             token,
             user: {
+                userID: user._id,
+                email: user.email,
                 username: user.username,
-                isAdmin: user.role === 'admin'
+                role: user.role,
             }
         });
     } catch (error) {
@@ -107,6 +109,8 @@ router.post('/login', async (req, res) => {
     }
 });
 
+
+// get user by 
 
 
 

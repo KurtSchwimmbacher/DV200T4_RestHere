@@ -4,8 +4,10 @@ import { createStore } from 'redux';
 // Define the initial state
 const initialState = {
   user: {
-    username: null,
-    isAdmin: false,
+    userID: null,
+    email: '',
+    username: '',
+    isAdmin: '',
   },
 };
 
@@ -13,9 +15,12 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN':
+      console.log('Reducer payload:', action.payload);
       return {
         ...state,
         user: {
+          userID : action.payload.userID,
+          email: action.payload.email,
           username: action.payload.username,
           isAdmin: action.payload.isAdmin,
         },

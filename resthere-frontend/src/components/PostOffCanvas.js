@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Offcanvas, Form, Button, InputGroup } from 'react-bootstrap';
-import { PencilFill, TrashFill, SendFill } from 'react-bootstrap-icons';
+import { TrashFill, SendFill } from 'react-bootstrap-icons';
+import axios from 'axios';
+
+// to get user details
+import { useSelector } from 'react-redux';
+
 
 import '../css/Posts.css';
 
@@ -8,17 +13,38 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
+  const user = useSelector((state) => state.user);
+  const userID = user.userID;
+
   useEffect(() => {
     // Pre-fill the form fields when the component mounts or updates with new post data
     setTitle(postTitle);
     setContent(postContent);
   }, [postTitle, postContent]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your post submission logic here
-    console.log({ title, content });
+  
+    console.log({ title, content, userID });
+  
+    try {
+        const response = await axios.post('http://localhost:5000/api/posts/create', {
+            title: title,
+            content: content,
+            user: userID,
+          });
+          
+  
+      console.log(response.data);
+      alert(response.data.message);
+      
+      handleClose(); 
+    } catch (error) {
+      console.error("Error creating post:", error);
+      alert("An error occurred while creating the post. Please try again.");
+    }
   };
+  
 
   return (
     <Offcanvas className="chat-off-canvas" show={show} onHide={handleClose} placement="end">
@@ -43,7 +69,7 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent }) {
 
             {/* icons */}
             <div className='icon-con'>
-              <PencilFill className='pencil-icon' />
+              {/* <PencilFill className='pencil-icon' /> */}
               <TrashFill className='trash-icon' />
             </div>
           </Form.Group>

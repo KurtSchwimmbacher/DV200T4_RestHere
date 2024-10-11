@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 const userRoutes = require('./routes/UserRoutes');
+const postRoutes = require('./routes/PostRoutes');
 
 dotenv.config();
 
@@ -34,6 +35,8 @@ mongoose.connect(process.env.MONGO_URI, {
 // use the user routes
 app.use('/api/users', userRoutes);
 
+// use the Posts route
+app.use('/api/posts', postRoutes);
 
 
 app.listen(PORT, () => {

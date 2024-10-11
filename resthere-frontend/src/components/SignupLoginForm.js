@@ -37,6 +37,8 @@ const SignupLoginForm = () => {
         dispatch({
           type: 'LOGIN',
           payload: {
+            userID: response.data.user.userID,
+            email: response.data.user.email,
             username: response.data.user.username,
             isAdmin: response.data.user.role,
           },
