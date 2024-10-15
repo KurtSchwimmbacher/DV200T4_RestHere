@@ -87,5 +87,20 @@ router.patch('/update/:id', async (req, res) => {
     }
 });
 
+// delete a post
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const post = await Posts.findByIdAndDelete(req.params.id);
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.json({ message: 'Post deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting post:', err); // Log the error for debugging
+        res.status(400).json({ error: 'Failed to delete post' });
+    }
+});
+
+
 module.exports = router;
 

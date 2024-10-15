@@ -67,6 +67,11 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
         alert(response.data.message);
         
         handleClose(); 
+
+        // Call refreshPosts if available to reload updated list
+        if (refreshPosts) {
+          refreshPosts();
+        }
       } catch (error) {
         console.error("Error creating post:", error);
         alert("An error occurred while creating the post. Please try again.");
@@ -76,6 +81,24 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
 
   };
   
+  const handleDelete = async () =>{
+    if(ID){
+      try {
+        const response = await axios.delete(`http://localhost:5000/api/posts/delete/${ID}`);
+        alert(response.data.message);
+        
+        handleClose(); 
+
+        // Call refreshPosts if available to reload updated list
+        if (refreshPosts) {
+          refreshPosts();
+        }
+      } catch (error) {
+        console.error("Error deleting post:", error);
+        alert("An error occurred while deleting the post. Please try again.");
+      }
+    }
+  }
 
   return (
     <Offcanvas className="chat-off-canvas" show={show} onHide={handleClose} placement="end">
@@ -101,9 +124,11 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
             {/* icons */}
             <div className='icon-con'>
               {/* <PencilFill className='pencil-icon' /> */}
-              <TrashFill className='trash-icon' />
+              <TrashFill className='trash-icon' onClick={handleDelete} />
             </div>
           </Form.Group>
+
+          
 
           {/* Post Content Textarea with Send Icon */}
           <Form.Group className="mb-3 form-post-content" controlId="postContent">
