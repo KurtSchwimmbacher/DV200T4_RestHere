@@ -39,6 +39,14 @@ const PostContainer = ({ handleShow }) => {
     },[user.userID])
 
 
+    // Callback function to refresh posts (for after editing posts)
+    const refreshPosts = () => {
+        if (user.userID) {
+            fetchUserPosts(user.userID);
+        }
+    };
+
+
   return (
    <Container>
     <Row>
@@ -50,9 +58,12 @@ const PostContainer = ({ handleShow }) => {
                 <Col key={post._id}>
                     {/* use data from db to populate card info */}
                     <PostCard
+                        postId={post._id}
                         title={post.title}
                         text={post.content}
                         handleShow={handleShow}
+                        // pass refresh posts function
+                        refreshPosts={refreshPosts}
                     />
                 </Col>
             ))

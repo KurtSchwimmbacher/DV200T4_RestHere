@@ -50,6 +50,42 @@ router.post('/create', async (req, res) => {
     }
 });
 
+// update a post
+router.patch('/update/:id', async (req, res) => {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['title', 'content'];
+    const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+    
+    // Check if the updates are valid
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' });
+    }
 
+    try {
+        const post = await Posts.findById(req.params.id);
+        
+        // If post doesn't exist
+        if (!post) {
+            return res.status(404).send({ message: 'Post not found' });
+        }
+
+        // Apply updates to the post
+        updates.forEach(update => {
+            post[update] = req.body[update];
+        });
+
+        await post.save(); 
+
+        res.status(201).json({ 
+            message: 'Post updated successfully', 
+            newPost: post 
+        });
+
+    } catch (error) {
+        console.error('Error updating post:', error);
+        res.status(400).send({ error: 'Failed to update post' });
+    }
+});
 
 module.exports = router;
+

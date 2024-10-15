@@ -9,9 +9,10 @@ import { useSelector } from 'react-redux';
 
 import '../css/Posts.css';
 
-function PostOffCanvas({ show, handleClose, postTitle, postContent }) {
+function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refreshPosts }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [ID, setID] = useState('');
 
   const user = useSelector((state) => state.user);
   const userID = user.userID;
@@ -20,6 +21,7 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent }) {
     // Pre-fill the form fields when the component mounts or updates with new post data
     setTitle(postTitle);
     setContent(postContent);
+    setID(postId);
   }, [postTitle, postContent]);
 
   const handleSubmit = async (e) => {
@@ -27,22 +29,51 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent }) {
   
     console.log({ title, content, userID });
   
-    try {
+    // if else to control if new post or editing post
+    if(ID){
+      // to edit an existing post
+      try {
+        const response = await axios.patch(`http://localhost:5000/api/posts/update/${ID}`,{
+          title,
+          content
+        });
+
+        console.log(response.data);
+        alert(response.data.message);
+        
+        handleClose();
+
+         // Call refreshPosts if available to reload updated list
+         if (refreshPosts) {
+          refreshPosts();
+        }
+
+      } catch (error) {
+        console.error("Error updating post:", error);
+        alert("An error occurred while updating the post. Please try again.");
+      }
+    }
+    else{
+      // to create a new post
+      try {
         const response = await axios.post('http://localhost:5000/api/posts/create', {
             title: title,
             content: content,
             user: userID,
           });
           
-  
-      console.log(response.data);
-      alert(response.data.message);
-      
-      handleClose(); 
-    } catch (error) {
-      console.error("Error creating post:", error);
-      alert("An error occurred while creating the post. Please try again.");
+
+        console.log(response.data);
+        alert(response.data.message);
+        
+        handleClose(); 
+      } catch (error) {
+        console.error("Error creating post:", error);
+        alert("An error occurred while creating the post. Please try again.");
+      }
     }
+
+
   };
   
 

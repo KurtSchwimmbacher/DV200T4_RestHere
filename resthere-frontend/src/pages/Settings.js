@@ -15,12 +15,26 @@ const Settings = () => {
 
   // State for OffCanvas visibility and selected post data
   const [showOffCanvas, setShowOffCanvas] = useState(false);
-  const [selectedPost, setSelectedPost] = useState({ title: '', content: '' });
+  const [selectedPost, setSelectedPost] = useState({ title: '', content: '' , ID:''});
 
-  const handleShow = (postTitle = '', postContent = '') => {
-    setSelectedPost({ title: postTitle, content: postContent });
+
+    // State to track refreshPosts function
+    const [refreshPostsFunc, setRefreshPostsFunc] = useState(null);
+
+
+  const handleShow = (postTitle = '', postContent = '', postId = '', refreshPosts) => {
+    setSelectedPost({ title: postTitle, content: postContent, ID: postId});
     setShowOffCanvas(true);
+
+
+    // Store the refreshPosts function from PostContainer
+    if (refreshPosts) {
+      setRefreshPostsFunc(() => refreshPosts); // Set the function reference correctly
+    }
+
   };
+
+  
 
   const handleClose = () => setShowOffCanvas(false);
 
@@ -70,7 +84,8 @@ const Settings = () => {
         </Row>
         <Row>
           <Col>
-            <PostContainer handleShow={handleShow} /> {/* Pass handleShow to PostContainer */}
+            {/* Pass handleShow to PostContainer */}
+            <PostContainer handleShow={handleShow} /> 
           </Col>
         </Row>
       </Container>
@@ -81,6 +96,9 @@ const Settings = () => {
         handleClose={handleClose} 
         postTitle={selectedPost.title} 
         postContent={selectedPost.content} 
+        postId={selectedPost.ID}
+        // pass the stored function
+        refreshPosts={refreshPostsFunc} 
       />
     </div>
   );
