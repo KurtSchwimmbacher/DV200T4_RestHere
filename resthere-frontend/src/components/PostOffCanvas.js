@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Offcanvas, Form, Button, InputGroup } from 'react-bootstrap';
+import { Offcanvas, Form, Button, InputGroup, FormGroup, ButtonGroup } from 'react-bootstrap';
 import { TrashFill, SendFill } from 'react-bootstrap-icons';
 import axios from 'axios';
 
@@ -128,7 +128,13 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
             </div>
           </Form.Group>
 
-          
+          <FormGroup className='mb-3 form-post-content' controlId='postTags'>
+            <ButtonGroup className='form-tag-btn-group' aria-label="Basic example">
+              <Button variant="danger">Chatting</Button>
+              <Button variant="danger">Help</Button>
+              <Button variant="danger">Advice</Button>
+            </ButtonGroup>
+          </FormGroup>
 
           {/* Post Content Textarea with Send Icon */}
           <Form.Group className="mb-3 form-post-content" controlId="postContent">
