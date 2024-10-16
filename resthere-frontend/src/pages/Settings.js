@@ -15,15 +15,15 @@ const Settings = () => {
 
   // State for OffCanvas visibility and selected post data
   const [showOffCanvas, setShowOffCanvas] = useState(false);
-  const [selectedPost, setSelectedPost] = useState({ title: '', content: '' , ID:''});
+  const [selectedPost, setSelectedPost] = useState({ title: '', content: '' , ID:'', tags:[]});
 
 
     // State to track refreshPosts function
     const [refreshPostsFunc, setRefreshPostsFunc] = useState(null);
 
 
-  const handleShow = (postTitle = '', postContent = '', postId = '', refreshPosts) => {
-    setSelectedPost({ title: postTitle, content: postContent, ID: postId});
+  const handleShow = (postTitle = '', postContent = '', postId = '',postTags=[], refreshPosts) => {
+    setSelectedPost({ title: postTitle, content: postContent, ID: postId, tags:postTags});
     setShowOffCanvas(true);
 
 
@@ -97,6 +97,7 @@ const Settings = () => {
         postTitle={selectedPost.title} 
         postContent={selectedPost.content} 
         postId={selectedPost.ID}
+        postTags={selectedPost.tags}
         // pass the stored function
         refreshPosts={refreshPostsFunc} 
       />

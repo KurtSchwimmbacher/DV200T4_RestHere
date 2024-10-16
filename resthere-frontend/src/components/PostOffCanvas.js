@@ -9,10 +9,11 @@ import { useSelector } from 'react-redux';
 
 import '../css/Posts.css';
 
-function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refreshPosts }) {
+function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refreshPosts, postTags }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [ID, setID] = useState('');
+  const [tags, setTags] = useState([]);
 
   const user = useSelector((state) => state.user);
   const userID = user.userID;
@@ -22,12 +23,13 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
     setTitle(postTitle);
     setContent(postContent);
     setID(postId);
-  }, [postTitle, postContent]);
+    setTags(postTags || []); 
+  }, [postTitle, postContent, postTags]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    console.log({ title, content, userID });
+    console.log({ title, content,tags, userID });
   
     // if else to control if new post or editing post
     if(ID){
@@ -35,7 +37,8 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
       try {
         const response = await axios.patch(`http://localhost:5000/api/posts/update/${ID}`,{
           title,
-          content
+          content,
+          tags
         });
 
         console.log(response.data);
@@ -60,6 +63,7 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
             title: title,
             content: content,
             user: userID,
+            tags
           });
           
 
@@ -98,7 +102,20 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
         alert("An error occurred while deleting the post. Please try again.");
       }
     }
-  }
+  };
+
+  const handleTagClick = (tag) => {
+    setTags((prevTags) => {
+        if (prevTags.includes(tag)) {
+            // Remove tag if already selected
+            return prevTags.filter(t => t !== tag);
+        } else {
+            // Add tag if not selected
+            return [...prevTags, tag];
+        }
+    });
+};
+
 
   return (
     <Offcanvas className="chat-off-canvas" show={show} onHide={handleClose} placement="end">
@@ -130,11 +147,19 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
 
           <FormGroup className='mb-3 form-post-content' controlId='postTags'>
             <ButtonGroup className='form-tag-btn-group' aria-label="Basic example">
-              <Button variant="danger">Chatting</Button>
-              <Button variant="danger">Help</Button>
-              <Button variant="danger">Advice</Button>
+                {['Chatting', 'Help', 'Advice'].map((tag) => (
+                    <Button 
+                        key={tag} 
+                        variant={tags.includes(tag) ? "warning" : "danger"} // Change color based on active state
+                        active={tags.includes(tag)} // Bootstrap will apply 'active' class if true
+                        onClick={() => handleTagClick(tag)}
+                    >
+                        {tag}
+                    </Button>
+                ))}
             </ButtonGroup>
-          </FormGroup>
+        </FormGroup>
+
 
           {/* Post Content Textarea with Send Icon */}
           <Form.Group className="mb-3 form-post-content" controlId="postContent">
@@ -147,7 +172,7 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
                 onChange={(e) => setContent(e.target.value)}
                 required
               />
-              <Button className='add-post-btn' type="submit" variant="warning">
+              <Button className='add-post-btn' type="submit" variant="warning-outline">
                 <SendFill />
               </Button>
             </InputGroup>

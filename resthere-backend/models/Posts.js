@@ -14,6 +14,10 @@ const PostSchema = new mongoose.Schema({
         ref: 'User', 
         required: true,
     },
+    tags: {
+        type: [String], // Array of strings for tags
+        default: [],    // Default to an empty array if no tags are provided
+    },
     createdAt: {
         type: Date,
         default: Date.now,

@@ -62,6 +62,7 @@ const PostContainer = ({ handleShow }) => {
                         title={post.title}
                         text={post.content}
                         handleShow={handleShow}
+                        postTags={post.tags}
                         // pass refresh posts function
                         refreshPosts={refreshPosts}
                     />

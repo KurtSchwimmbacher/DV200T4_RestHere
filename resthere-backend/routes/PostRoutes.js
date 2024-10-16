@@ -26,7 +26,7 @@ router.get('/user/:userId', async (req, res) => {
 
 // new post route
 router.post('/create', async (req, res) => {
-    const { title, content, user } = req.body;
+    const { title, content, user, tags } = req.body;
 
     // create post
     try {
@@ -34,6 +34,7 @@ router.post('/create', async (req, res) => {
             title,
             content,
             user,
+            tags,
         });
 
         await newPost.save();
@@ -53,7 +54,7 @@ router.post('/create', async (req, res) => {
 // update a post
 router.patch('/update/:id', async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['title', 'content'];
+    const allowedUpdates = ['title', 'content','tags'];
     const isValidOperation = updates.every(update => allowedUpdates.includes(update));
     
     // Check if the updates are valid

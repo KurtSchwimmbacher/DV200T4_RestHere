@@ -34,7 +34,7 @@
     color: white !important;
   }
 
-  .btn-danger{
+  .btn-danger ,.btn-warning{
     font-family: "Playwrite US Trad", system-ui !important;
     font-optical-sizing: auto;
     font-size: 12px !important;
@@ -44,6 +44,11 @@
     border: 1px solid #A9C4A0 !important;
     margin-left: 10%;
     margin-right: 10%;
+  }
+
+  .btn-warning{
+    background-color: #A9C4A0 !important;
+    color: #ffffff !important;
   }
 
   .form-tag-btn-group{
