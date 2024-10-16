@@ -52,3 +52,21 @@
   cursor: pointer;
   background-color: #A9C4A0 !important;
 }
+
+.fc-toolbar-title, .fc-today-button{
+  font-family: "Montserrat Alternates", system-ui !important;
+  font-weight: 300;
+  color: black;
+}
+
+.fc-today-button, .fc-next-button , .fc-prev-button{
+  background-color: #A9C4A0 !important;
+  border: none !important;
+}
+
+.fc-col-header-cell ,.fc-scrollgrid-sync-inner ,.fc-col-header-cell-cushion{
+  text-decoration: none !important;
+  font-family: "Montserrat Alternates", system-ui !important;
+  font-weight: 300 !important;
+  color: black !important;
+}
