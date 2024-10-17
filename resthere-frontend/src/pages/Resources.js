@@ -33,7 +33,7 @@ const Resources= () => {
             {/* filter sort row */}
             <Row className='filter-sort-row mt-3 mb-3'>
               <Col>
-                <FilterPills />
+                <FilterPills page={'resources'} />
               </Col>
               <Col className='sort-dropdown-col'>
                 <SortDropdown />

@@ -59,7 +59,7 @@ router.post('/create', async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error.message); // Fixed the variable name here
+        console.error(error.message);
         res.status(500).json({ msg: 'Server error' });
     }
 });

@@ -52,7 +52,7 @@ const Forum = () => {
             {/* filter sort row */}
             <Row className='filter-sort-row mt-3 mb-3'>
               <Col>
-                <FilterPills />
+                <FilterPills page={'forum'} />
               </Col>
               <Col className='sort-dropdown-col'>
                 <SortDropdown />

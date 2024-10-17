@@ -6,6 +6,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/UserRoutes');
 const postRoutes = require('./routes/PostRoutes');
 const journalRoutes = require('./routes/JournalRoutes');
+const resourceRoutes = require('./routes/ResourcesRoutes');
 
 dotenv.config();
 
@@ -41,6 +42,10 @@ app.use('/api/posts', postRoutes);
 
 // use the Journal route
 app.use('/api/journal',journalRoutes);
+
+// use the Resource route
+app.use('/api/resouce',resourceRoutes);
+
 
 
 app.listen(PORT, () => {
