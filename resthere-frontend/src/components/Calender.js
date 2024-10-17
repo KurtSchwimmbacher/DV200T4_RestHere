@@ -14,13 +14,24 @@ export function Calender() {
   // get user info
   const user = useSelector((state) => state.user);
 
-  const [newEvents, setNewEvents] = useState([]);
+  const [events, setEvents] = useState([]);
 
   const fetchUserEntries = async (userID) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/journal/entries/${userID}`);
       console.log(response);
-      setNewEvents(response.data);
+      
+    // Format the response data to match the FullCalendar event structure
+    const formattedEvents = response.data.map(entry => ({
+      title: entry.title, 
+      // Convert to ISO format (YYYY-MM-DD)
+      start: new Date(entry.date).toISOString().split('T')[0], 
+      
+    }));
+
+    console.log(formattedEvents)
+    setEvents(formattedEvents);
+
     } catch (error) {
       console.error('Error fetching user entries:', error.response ? error.response.data : error.message);
       console.error('Request Config:', error.config);

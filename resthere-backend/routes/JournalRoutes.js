@@ -5,26 +5,27 @@ const router = express.Router();
 const JournalEntry = require('../models/JournalEntry');
 
 
-const mongoose = require('mongoose'); // Import mongoose if not already
-
 // Fetch all journal entries by user
-router.get('/entries/:userID', async (req, res) => {
+router.get('/entries/:userId', async (req, res) => {
+  const { userId } = req.params;
+
   try {
-    const { userID } = req.params;
+      // Find all entries where the user matches the provided userId
+      const entries = await JournalEntry.find({ user: userId }); 
 
-    // Convert userID to ObjectId for proper query matching
-    const entries = await JournalEntry.find({ user: mongoose.Types.ObjectId(userID) });
+      if (!entries || entries.length === 0) {
+          return res.status(404).json({ message: 'No entries found for this user.' });
+      }
 
-    if (entries.length === 0) {
-      return res.json([]); // Return empty array if no entries are found
-    }
-
-    res.status(200).json(entries); // Use 200 for successful retrieval
+      // Return the found posts
+      res.status(200).json(entries); 
   } catch (error) {
-    console.error('Error fetching journal entries:', error);
-    res.status(500).send('Server Error'); // Keep it as is for server errors
+      console.error(error.message);
+      res.status(500).json({ msg: 'Server error' });
   }
 });
+
+
 
 // Add a new journal entry
 router.post('/create', async (req, res) => {
