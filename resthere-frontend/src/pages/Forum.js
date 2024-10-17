@@ -1,12 +1,12 @@
 // src/pages/Home.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import axios from 'axios';
 
 import SearchBar from '../components/SearchBar';
-import ResourceCard from '../components/ResourceCard';
+import PostCard from '../components/PostCard';
 import FilterPills from '../components/FilterPills';
 import SortDropdown from '../components/SortDropdown';
 
@@ -14,6 +14,26 @@ import SortDropdown from '../components/SortDropdown';
 import '../css/Journal.css';
 
 const Forum = () => {
+
+  const [posts, setPosts] = useState([]); // State to hold posts
+
+  // Function to fetch all posts
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/posts/'); // Replace with your API endpoint
+      setPosts(response.data); 
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching posts:', error.response ? error.response.data : error.message);
+    }
+  };
+
+    
+    useEffect(() => {
+      fetchPosts();
+    }, []); 
+  
+
   return (
     <div className='journal-container'>
         <Container>
@@ -40,18 +60,25 @@ const Forum = () => {
             </Row>
             {/* card row */}
             <Row className='mt-3'>
-              <Col>
-                <ResourceCard />
-              </Col>
-              <Col>
-                <ResourceCard />
-              </Col>
-              <Col>
-                <ResourceCard />
-              </Col>
-              <Col>
-                <ResourceCard />
-              </Col>
+              {posts.length > 0 ? (
+                posts.map(post => (
+                  <Col key={post._id}> 
+                    <PostCard
+                        postId={post._id}
+                        title={post.title}
+                        text={post.content}
+                        // handleShow={handleShow}
+                        postTags={post.tags}
+                        // pass refresh posts function
+                        // refreshPosts={refreshPosts}
+                    />
+                  </Col>
+                ))
+              ) : (
+                <Col>
+                  <p>No posts available.</p> {/* Fallback message if no posts are found */}
+                </Col>
+              )}
             </Row>
         </Container>
     </div>

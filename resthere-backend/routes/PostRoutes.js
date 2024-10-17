@@ -2,6 +2,19 @@ const express = require('express');
 const Posts = require('../models/Posts');
 const router = express.Router();
 
+// get all posts
+router.get('/', async (req, res) => {
+    try {
+      const posts = await Posts.find(); 
+      res.status(200).json(posts); 
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      res.status(500).json({ message: 'Server error' }); 
+    }
+  });
+  
+
+
 
 // get posts by user
 router.get('/user/:userId', async (req, res) => {
