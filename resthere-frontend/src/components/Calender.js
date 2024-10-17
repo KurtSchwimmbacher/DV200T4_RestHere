@@ -14,29 +14,26 @@ export function Calender() {
   // get user info
   const user = useSelector((state) => state.user);
 
-  const [events, setEvents] = useState([]);
+  const [newEvents, setNewEvents] = useState([]);
 
-  const fetchUserEntries = async (userID) =>{
+  const fetchUserEntries = async (userID) => {
     try {
-      await axios.get(`http://localhost:5000/api/journal/entries/${userID}`).then(response => {
-        const formattedEvents = response.data.map(entry => ({
-          title: entry.title,
-          start: new Date(entry.date),
-          extendedProps: { content: entry.content }
-        }));
-        setEvents(formattedEvents);
-      }); 
+      const response = await axios.get(`http://localhost:5000/api/journal/entries/${userID}`);
+      console.log(response);
+      setNewEvents(response.data);
     } catch (error) {
-      console.error('Error fetching user entries:', error);
+      console.error('Error fetching user entries:', error.response ? error.response.data : error.message);
+      console.error('Request Config:', error.config);
     }
   }
 
-  useEffect(()=>{
-    if(user.userID){
-      // fetch events by user
-      fetchUserEntries(user.userID)
+  useEffect(() => {
+    if (user.userID) {  
+      console.log('Fetching entries for userID:', user.userID); // Add this
+      fetchUserEntries(user.userID);
     }
-  },[user.userID]);
+  }, [user.userID]);
+  
 
   return (
     <div className='calender-con'>

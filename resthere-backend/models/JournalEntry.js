@@ -5,13 +5,18 @@ const JournalEntrySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    data:{
+    date:{
         type: Date,
         required: true,
     },
     content:{
         type: String,
-    }
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('JournalEntry', JournalEntrySchema);

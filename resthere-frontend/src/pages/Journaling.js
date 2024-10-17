@@ -1,17 +1,24 @@
-// src/pages/Home.js
-import React from 'react';
+// src/pages/Journaling.js
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Button } from 'react-bootstrap';
 
 import Calender from '../components/Calender.js';
-
+import JournalOffCanvas from '../components/JournalOffCanvas.js';
 
 // link css
 import '../css/Journal.css';
 
 
 const Journaling = () => {
+  const [showOffCanvas, setShowOffCanvas] = useState(false);
+
+  const handleShowOffCanvas = () => setShowOffCanvas(true);
+  const handleCloseOffCanvas = () => setShowOffCanvas(false);
+
+
   return (
     <div className='journal-container'>
         <Container>
@@ -23,11 +30,16 @@ const Journaling = () => {
             </Row>
             <Row>
               <Col>
+                <Button variant='secondary' onClick={handleShowOffCanvas}>New Journal</Button>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
                 <Calender />
               </Col>
             </Row>
         </Container>
-        
+        <JournalOffCanvas show={showOffCanvas} handleClose={handleCloseOffCanvas} />
     </div>
   );
 }
