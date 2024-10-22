@@ -54,4 +54,49 @@ router.post('/create', async (req, res) => {
   }
 });
 
+// Fetch a single journal entry by ID
+router.get('/entry/:entryId', async (req, res) => {
+  const { entryId } = req.params;
+
+  try {
+    const entry = await JournalEntry.findById(entryId);
+
+    if (!entry) {
+      return res.status(404).json({ message: 'Entry not found.' });
+    }
+
+    res.status(200).json(entry);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+// Update an existing journal entry
+router.post('/update/:entryId', async (req, res) => {
+  const { entryId } = req.params;
+  const { title, date, content } = req.body;
+
+  try {
+    const updatedEntry = await JournalEntry.findByIdAndUpdate(
+      entryId,
+      { title, date, content },
+      { new: true } // Return the updated entry
+    );
+
+    if (!updatedEntry) {
+      return res.status(404).json({ message: 'Entry not found.' });
+    }
+
+    res.status(200).json({
+      message: 'Journal entry updated successfully',
+      entry: updatedEntry,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+
 module.exports = router;
