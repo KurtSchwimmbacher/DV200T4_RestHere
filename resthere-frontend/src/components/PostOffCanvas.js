@@ -172,11 +172,15 @@ function PostOffCanvas({ show, handleClose, postTitle, postContent, postId, refr
                 onChange={(e) => setContent(e.target.value)}
                 required
               />
+
               <Button className='add-post-btn' type="submit" variant="warning-outline">
                 <SendFill />
               </Button>
+              
             </InputGroup>
           </Form.Group>
+
+
         </Form>
       </Offcanvas.Body>
     </Offcanvas>

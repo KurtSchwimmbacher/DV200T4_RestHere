@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
 import Calender from '../components/Calender.js';
-import JournalOffCanvas from '../components/JournalOffCanvas.js';
+import UnifiedOffCanvas from '../components/UnifiedOffCanvas.js';
 import '../css/Journal.css';
 
 const Journaling = () => {
@@ -50,7 +50,7 @@ const Journaling = () => {
           </Col>
         </Row>
       </Container>
-      <JournalOffCanvas show={showOffCanvas} handleClose={handleCloseOffCanvas} entry={selectedEntry} />
+      <UnifiedOffCanvas type={"journal"} show={showOffCanvas} handleClose={handleCloseOffCanvas} entry={selectedEntry} />
     </div>
   );
 };

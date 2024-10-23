@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PostContainer from '../components/PostContainer';
-import PostOffCanvas from '../components/PostOffCanvas'; // Import OffCanvas here
+import UnifiedOffCanvas from '../components/UnifiedOffCanvas';
 import '../css/settingsProfile.css';
 
 const Settings = () => {
@@ -91,13 +91,11 @@ const Settings = () => {
       </Container>
 
       {/* OffCanvas for New Post */}
-      <PostOffCanvas 
+      <UnifiedOffCanvas 
+        type={"post"}
         show={showOffCanvas} 
         handleClose={handleClose} 
-        postTitle={selectedPost.title} 
-        postContent={selectedPost.content} 
-        postId={selectedPost.ID}
-        postTags={selectedPost.tags}
+        postData={selectedPost}
         // pass the stored function
         refreshPosts={refreshPostsFunc} 
       />

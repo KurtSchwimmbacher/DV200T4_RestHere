@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
@@ -46,6 +46,10 @@ function JournalOffCanvas({ show, handleClose, entry }) {
     }
   };
 
+  const handleDelete = async() =>{
+    console.log("deleting entry");
+  }
+
   return (
     <Offcanvas className='journal-off-canvas' show={show} onHide={handleClose} placement='end'>
       <Offcanvas.Header closeButton>
@@ -55,12 +59,15 @@ function JournalOffCanvas({ show, handleClose, entry }) {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId='formTitle'>
             <Form.Label>Title</Form.Label>
+            <InputGroup>
             <Form.Control
-              type='text'
-              placeholder='Enter title'
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+                type='text'
+                placeholder='Enter title'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                />
+            </InputGroup>
+            
           </Form.Group>
           <Form.Group controlId='formContent' className='mt-3'>
             <Form.Label>Content</Form.Label>
