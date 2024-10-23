@@ -19,7 +19,7 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
 
     useEffect(() => {
         console.log("entry Data: " + entryData)
-        console.log("post Data: " + postData)
+        console.log(postData)
 
         if (entryData) {
             setTitle(entryData.title || '');
@@ -37,29 +37,43 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+    
+        // Determine if we are dealing with a post or a journal entry
+        const isPost = type === 'post';
+        const isEdit = Boolean(ID);
+    
         const payload = {
             title,
             content,
-            user: userID,
-            ...(type === 'journal' && { date }),
-            ...(type === 'post' && { tags }),
+            ...(!isPost && {user: userID}),
+            ...(isPost && { tags }), // Only include tags if it's a post
+            ...(!isPost && { date }) // Only include date if it's a journal entry
         };
-
-        const url = ID
-            ? `http://localhost:5000/api/${type === 'journal' ? 'journal' : 'posts'}/update/${ID}`
-            : `http://localhost:5000/api/${type === 'journal' ? 'journal' : 'posts'}/create`;
-
+    
+        const url = isEdit
+            ? `http://localhost:5000/api/${isPost ? 'posts' : 'journal'}/update/${ID}`
+            : `http://localhost:5000/api/${isPost ? 'posts' : 'journal'}/create`;
+    
+        const method = isEdit ? 'patch' : 'post';
+    
         try {
-            const method = ID ? 'patch' : 'post';
             const response = await axios[method](url, payload);
+            console.log(response.data);
             alert(response.data.message);
+    
             handleClose();
-            if (refreshEntries) refreshEntries();
+    
+            // Refresh the list if the callback is provided
+            if (refreshEntries) {
+                refreshEntries();
+            }
         } catch (error) {
-            console.error(`Error saving ${type}:`, error);
-            alert(`An error occurred while saving the ${type}. Please try again.`);
+            console.error(`Error ${isEdit ? 'updating' : 'creating'} ${type}:`, error);
+            alert(`An error occurred while ${isEdit ? 'updating' : 'creating'} the ${type}. Please try again.`);
         }
     };
+    
+    
 
     const handleDelete = async () => {
         if (ID) {
