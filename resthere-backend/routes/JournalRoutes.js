@@ -99,4 +99,23 @@ router.patch('/update/:entryId', async (req, res) => {
 });
 
 
+// Delete a journal entry by ID
+router.delete('/delete/:entryId', async (req, res) => {
+  const { entryId } = req.params;
+
+  try {
+    const deletedEntry = await JournalEntry.findByIdAndDelete(entryId);
+
+    if (!deletedEntry) {
+      return res.status(404).json({ message: 'Entry not found.' });
+    }
+
+    res.status(200).json({ message: 'Journal entry deleted successfully.' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+
 module.exports = router;
