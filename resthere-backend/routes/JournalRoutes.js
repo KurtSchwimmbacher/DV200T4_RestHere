@@ -73,7 +73,7 @@ router.get('/entry/:entryId', async (req, res) => {
 });
 
 // Update an existing journal entry
-router.post('/update/:entryId', async (req, res) => {
+router.patch('/update/:entryId', async (req, res) => {
   const { entryId } = req.params;
   const { title, date, content } = req.body;
 

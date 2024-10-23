@@ -14,7 +14,7 @@ const Journaling = () => {
   const [selectedEntry, setSelectedEntry] = useState(null);
 
   const handleShowOffCanvas = () => {
-    setSelectedEntry(null); // Clear previous data when creating a new entry
+    // setSelectedEntry(null); // Clear previous data when creating a new entry
     setShowOffCanvas(true);
   };
 
@@ -23,6 +23,7 @@ const Journaling = () => {
   const handleEventClick = async (entryID) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/journal/entry/${entryID}`);
+      console.log('Fetched Entry:', response.data); 
       setSelectedEntry(response.data); 
       setShowOffCanvas(true);
     } catch (error) {
@@ -50,7 +51,7 @@ const Journaling = () => {
           </Col>
         </Row>
       </Container>
-      <UnifiedOffCanvas type={"journal"} show={showOffCanvas} handleClose={handleCloseOffCanvas} entry={selectedEntry} />
+      <UnifiedOffCanvas type={"journal"} show={showOffCanvas} handleClose={handleCloseOffCanvas} entryData={selectedEntry} />
     </div>
   );
 };

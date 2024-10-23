@@ -18,7 +18,7 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
     const [ID, setID] = useState('');
 
     useEffect(() => {
-        console.log("entry Data: " + entryData)
+        console.log(entryData)
         console.log(postData)
 
         if (entryData) {
@@ -45,7 +45,7 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
         const payload = {
             title,
             content,
-            ...(!isPost && {user: userID}),
+            ...(!isPost &&  {user: userID}),
             ...(isPost && { tags }), // Only include tags if it's a post
             ...(!isPost && { date }) // Only include date if it's a journal entry
         };
