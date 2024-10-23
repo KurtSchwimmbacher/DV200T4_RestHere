@@ -1,12 +1,12 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import { ArrowUpRight } from 'react-bootstrap-icons';
-import '../css/Resources.css'; 
+import '../css/Resources.css';
 
-const ResourceCard = ({ title, text }) => {
+const ResourceCard = ({ title, text, onEditClick }) => {
   return (
     <Card className="custom-card">
-      <div className="card-arrow-icon">
+      <div className="card-arrow-icon" onClick={onEditClick}>
         <ArrowUpRight />
       </div>
       <Card.Body className='resource-card-body'>

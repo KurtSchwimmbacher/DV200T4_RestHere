@@ -1,52 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 import AdminModal from '../components/AdminModal';
 import PostContainer from '../components/PostContainer';
 import UnifiedOffCanvas from '../components/UnifiedOffCanvas';
+import ResourceCard from '../components/ResourceCard';
 import '../css/settingsProfile.css';
 
 const Settings = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  // State for OffCanvas visibility and selected post data
   const [showOffCanvas, setShowOffCanvas] = useState(false);
-  const [selectedPost, setSelectedPost] = useState({ title: '', content: '' , ID:'', tags:[]});
+  const [selectedPost, setSelectedPost] = useState({ title: '', content: '', ID: '', tags: [] });
   const [showAdminModal, setShowAdminModal] = useState(false);
+  const [resources, setResources] = useState([]);
+  const [selectedResource, setSelectedResource] = useState(null); // State to store selected resource for editing
 
-    // State to track refreshPosts function
-    const [refreshPostsFunc, setRefreshPostsFunc] = useState(null);
+  const [refreshPostsFunc, setRefreshPostsFunc] = useState(null);
 
+  useEffect(() => {
+    if (user.isAdmin === 'admin') {
+      const fetchResources = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/api/resource/');
+          setResources(response.data);
+        } catch (error) {
+          console.error('Error fetching resources:', error);
+        }
+      };
 
-  const handleShow = (postTitle = '', postContent = '', postId = '',postTags=[], refreshPosts) => {
-    setSelectedPost({ title: postTitle, content: postContent, ID: postId, tags:postTags});
-    setShowOffCanvas(true);
-
-
-    // Store the refreshPosts function from PostContainer
-    if (refreshPosts) {
-      setRefreshPostsFunc(() => refreshPosts); // Set the function reference correctly
+      fetchResources();
     }
+  }, [user.isAdmin]);
 
+  const handleShow = (postTitle = '', postContent = '', postId = '', postTags = [], refreshPosts) => {
+    setSelectedPost({ title: postTitle, content: postContent, ID: postId, tags: postTags });
+    setShowOffCanvas(true);
+    if (refreshPosts) {
+      setRefreshPostsFunc(() => refreshPosts);
+    }
   };
 
-  
-
   const handleClose = () => setShowOffCanvas(false);
-
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' });
     window.location.href = '/';
   };
 
-
   const handleAdminModalOpen = () => setShowAdminModal(true);
   const handleAdminModalClose = () => setShowAdminModal(false);
+
+  const handleEditResource = (resource) => {
+    setSelectedResource(resource); // Set the selected resource data
+    console.log(resource)
+    setShowAdminModal(true); // Open Admin Modal
+  };
 
   return (
     <div className='journal-container'>
@@ -59,13 +73,13 @@ const Settings = () => {
             </h1>
           </Col>
         </Row>
-        
+
         {/* User Profile Section */}
         <Row className='mb-4 mt-5'>
           <Col className='text-center'>
-            <img 
-              src={user.profilePicture} 
-              alt={`${user.username}'s Profile`} 
+            <img
+              src={user.profilePicture}
+              alt={`${user.username}'s Profile`}
               className='profile-picture'
             />
             <h2>{user.username}</h2>
@@ -76,15 +90,7 @@ const Settings = () => {
         {/* Logout button */}
         <Row>
           <Col>
-            <Button variant="danger" onClick={handleLogout}>Logout</Button>
-
-            {/* Admin-only Button */}
-            {user.isAdmin && (
-              <Button variant="danger" className="ms-3" onClick={handleAdminModalOpen}>
-                Admin Panel
-              </Button>
-            )}
-
+            <Button variant='danger' onClick={handleLogout}>Logout</Button>
           </Col>
         </Row>
 
@@ -97,26 +103,51 @@ const Settings = () => {
         </Row>
         <Row>
           <Col>
-            {/* Pass handleShow to PostContainer */}
-            <PostContainer handleShow={handleShow} /> 
+            <PostContainer handleShow={handleShow} />
           </Col>
         </Row>
+
+        {/* Resource Card Row - Admin Only */}
+        {user.isAdmin === 'admin' && resources.length > 0 && (
+          <>
+            <Row className='admin-only-section'>
+              <Col className='title-button-col'>
+                <h2 className='recent-posts-title mt-5'>Resources</h2>
+                <Button variant='danger' className='new-post-button' onClick={handleAdminModalOpen}>
+                  Post Resource
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              {resources.map((resource) => (
+                <Col key={resource._id}>
+                  <ResourceCard
+                    title={resource.title}
+                    text={resource.content}
+                    onEditClick={() => handleEditResource(resource)} // Handle edit click
+                  />
+                </Col>
+              ))}
+            </Row>
+          </>
+        )}
       </Container>
 
       {/* OffCanvas for New Post */}
-      <UnifiedOffCanvas 
-        type={"post"}
-        show={showOffCanvas} 
-        handleClose={handleClose} 
+      <UnifiedOffCanvas
+        type={'post'}
+        show={showOffCanvas}
+        handleClose={handleClose}
         postData={selectedPost}
-        // pass the stored function
-        refreshPosts={refreshPostsFunc} 
+        refreshPosts={refreshPostsFunc}
       />
 
-
-      {/* Admin Modal */}
-      <AdminModal show={showAdminModal} handleClose={handleAdminModalClose} />
-
+      {/* Admin Modal with Resource Data */}
+      <AdminModal
+        show={showAdminModal}
+        handleClose={handleAdminModalClose}
+        resourceData={selectedResource} // Pass the selected resource data
+      />
     </div>
   );
 };

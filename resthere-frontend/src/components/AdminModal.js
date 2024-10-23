@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, InputGroup, ButtonGroup } from 'react-bootstrap';
 import { TrashFill } from 'react-bootstrap-icons';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const AdminModal = ({ show, handleClose }) => {
+const AdminModal = ({ show, handleClose ,resourceData }) => {
 
     const user = useSelector((state) => state.user);
     const userID = user.userID;
@@ -13,6 +13,14 @@ const AdminModal = ({ show, handleClose }) => {
     const [content, setContent] = useState('');
     const [tags, setTags] = useState([]);
     const [resourceUrl, setResourceUrl] = useState('');
+
+    // Set initial values when the modal opens
+    useEffect(() => {
+        if (resourceData) {
+            setTitle(resourceData.title || '');
+            setContent(resourceData.content || '');
+        }
+    }, [resourceData]);
 
     const handleTagClick = (tag) => {
         setTags((prevTags) =>
