@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 
+import AdminModal from '../components/AdminModal';
 import PostContainer from '../components/PostContainer';
 import UnifiedOffCanvas from '../components/UnifiedOffCanvas';
 import '../css/settingsProfile.css';
@@ -16,7 +17,7 @@ const Settings = () => {
   // State for OffCanvas visibility and selected post data
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [selectedPost, setSelectedPost] = useState({ title: '', content: '' , ID:'', tags:[]});
-
+  const [showAdminModal, setShowAdminModal] = useState(false);
 
     // State to track refreshPosts function
     const [refreshPostsFunc, setRefreshPostsFunc] = useState(null);
@@ -42,6 +43,10 @@ const Settings = () => {
     dispatch({ type: 'LOGOUT' });
     window.location.href = '/';
   };
+
+
+  const handleAdminModalOpen = () => setShowAdminModal(true);
+  const handleAdminModalClose = () => setShowAdminModal(false);
 
   return (
     <div className='journal-container'>
@@ -72,6 +77,14 @@ const Settings = () => {
         <Row>
           <Col>
             <Button variant="danger" onClick={handleLogout}>Logout</Button>
+
+            {/* Admin-only Button */}
+            {user.isAdmin && (
+              <Button variant="danger" className="ms-3" onClick={handleAdminModalOpen}>
+                Admin Panel
+              </Button>
+            )}
+
           </Col>
         </Row>
 
@@ -99,6 +112,11 @@ const Settings = () => {
         // pass the stored function
         refreshPosts={refreshPostsFunc} 
       />
+
+
+      {/* Admin Modal */}
+      <AdminModal show={showAdminModal} handleClose={handleAdminModalClose} />
+
     </div>
   );
 };

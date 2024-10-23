@@ -58,3 +58,19 @@
     margin-top: 5vh !important;
   }
 
+.modal-content{
+  background: #FFFFFF7A !important;
+  border: 1px solid #FFFFFF1F !important;
+  backdrop-filter: blur(100px) !important;
+
+  padding: 25px;
+  border-radius: 50px;
+
+  font-family: "Montserrat Alternates", system-ui;
+  font-weight: 300;
+}
+
+.admin-modal-title{
+  width: 100%;
+  text-align: center !important;
+}

@@ -44,7 +44,7 @@ app.use('/api/posts', postRoutes);
 app.use('/api/journal',journalRoutes);
 
 // use the Resource route
-app.use('/api/resouce',resourceRoutes);
+app.use('/api/resource',resourceRoutes);
 
 
 

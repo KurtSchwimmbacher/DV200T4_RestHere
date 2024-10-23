@@ -2,7 +2,7 @@ const express = require('express');
 const Resources = require('../models/Resources');
 const router = express.Router();
 
-// get all rouces
+// get all resources
 router.get('/', async (req, res) => {
     try {
       const resources = await Resources.find(); 
@@ -31,7 +31,7 @@ router.post('/create', async (req, res) => {
 
         // return message and post details
         res.status(201).json({ 
-            message: 'Post created successfully', 
+            message: 'Resource posted successfully', 
             resource: newResource 
         });
 
