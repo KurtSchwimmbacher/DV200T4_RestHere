@@ -1,21 +1,21 @@
-// src/components/ChatOffCanvas.js
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import React from 'react';
+import { Offcanvas, Button } from 'react-bootstrap';
 
-import ChatMessageCard from './ChatMessageCard';
+const ChatOffCanvas = ({ show, handleClose, professional }) => {
+  if (!professional) return null;
 
-import '../css/Chat.css';
-
-function ChatOffCanvas({ show, handleClose }) {
   return (
-    <Offcanvas className='chat-off-canvas' show={show} onHide={handleClose} placement='end'>
+    <Offcanvas show={show} onHide={handleClose}>
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Your Profile</Offcanvas.Title>
+        <Offcanvas.Title>Chat with {professional.name}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <ChatMessageCard />
+        <p><strong>Specialty:</strong> {professional.specialty}</p>
+        <p>{professional.bio}</p>
+        <Button variant="primary">Send Message</Button>
       </Offcanvas.Body>
     </Offcanvas>
   );
-}
+};
 
 export default ChatOffCanvas;

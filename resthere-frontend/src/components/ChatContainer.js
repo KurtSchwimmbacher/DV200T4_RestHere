@@ -1,5 +1,5 @@
-// src/components/ChatContainer.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ChatCard from './ChatCard';
 import ChatOffCanvas from './ChatOffCanvas';
 import Container from 'react-bootstrap/Container';
@@ -8,45 +8,45 @@ import Col from 'react-bootstrap/Col';
 
 const ChatContainer = () => {
   const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const [professionals, setProfessionals] = useState([]);
+  const [selectedProfessional, setSelectedProfessional] = useState(null);
 
-  const handleShow = () => setShowOffCanvas(true);
+  const handleShow = (professional) => {
+    setSelectedProfessional(professional);
+    setShowOffCanvas(true);
+  };
+
   const handleClose = () => setShowOffCanvas(false);
+
+  useEffect(() => {
+    const fetchProfessionals = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/professionals');
+        setProfessionals(response.data);
+      } catch (error) {
+        console.error('Error fetching professionals:', error);
+      }
+    };
+
+    fetchProfessionals();
+  }, []);
 
   return (
     <Container>
-        <Row>
-            <Col>
-                <ChatCard 
-                    title="Chat Card 1" 
-                    text="Some description for the first chat card" 
-                    handleShow={handleShow} 
-                />
-            </Col>
-            <Col>
-                <ChatCard 
-                    title="Chat Card 2" 
-                    text="Some description for the second chat card" 
-                    handleShow={handleShow} 
-                />
-            </Col>
-            <Col>
-                <ChatCard 
-                    title="Chat Card 2" 
-                    text="Some description for the second chat card" 
-                    handleShow={handleShow} 
-                />
-            </Col>
-            <Col>
-                <ChatCard 
-                    title="Chat Card 2" 
-                    text="Some description for the second chat card" 
-                    handleShow={handleShow} 
-                />
-            </Col>
-        </Row>
+      <Row>
+        {professionals.map((professional) => (
+          <Col key={professional._id}>
+            <ChatCard 
+              title={professional.name} 
+              text={professional.bio} 
+              handleShow={() => handleShow(professional)} 
+            />
+          </Col>
+        ))}
+      </Row>
 
-      {/* Same Offcanvas for all cards */}
-      <ChatOffCanvas show={showOffCanvas} handleClose={handleClose} />
+      {/* Pass selected professional data to the off-canvas */}
+      <ChatOffCanvas show={showOffCanvas} handleClose={handleClose} professional={selectedProfessional} />
     </Container>
   );
 };

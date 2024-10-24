@@ -1,25 +1,33 @@
-// src/components/StaticPills.js
-import React from 'react';
+import React, { useState } from 'react'; // Import useState
 import { Nav } from 'react-bootstrap';
-
-// Link CSS if necessary
 import '../css/Resources.css';
 
-const FilterPills = ({ page }) => {
-  // Define filters based on the page
+const FilterPills = ({ page, onFilterChange }) => {
   const filters = {
-    forum: ['All', 'Questions', 'Discussions', 'Tips'],
+    forum: ['All', 'Advice', 'Help', 'Chatting'],
     resources: ['All', 'Video', 'Article', 'Tutorials'],
   };
 
-  // Select filters based on the page prop
-  const selectedFilters = filters[page] || filters.resources; 
+  const selectedFilters = filters[page] || filters.resources;
+  const [activeFilter, setActiveFilter] = useState('All'); // Initialize active filter state
+
+  const handleFilterClick = (filter) => {
+    setActiveFilter(filter); // Update active filter state
+    if (onFilterChange) {
+      onFilterChange(filter);
+    }
+  };
 
   return (
     <Nav variant="pills" className="static-pills">
       {selectedFilters.map((filter, index) => (
         <Nav.Item className='filter-pill-con' key={index}>
-          <Nav.Link className='filter-pill' active={filter === 'All'}>{filter}</Nav.Link>
+          <Nav.Link
+            className={`filter-pill ${activeFilter === filter ? 'active' : ''}`} // Apply active class
+            onClick={() => handleFilterClick(filter)}
+          >
+            {filter}
+          </Nav.Link>
         </Nav.Item>
       ))}
     </Nav>

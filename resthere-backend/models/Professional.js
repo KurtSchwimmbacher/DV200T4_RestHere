@@ -20,6 +20,11 @@ const ProfessionalSchema = new mongoose.Schema({
     availability: { 
         type: Boolean, 
         default: true 
+    },
+    user: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
+        required: true 
     }
 });
 

@@ -7,6 +7,7 @@ const userRoutes = require('./routes/UserRoutes');
 const postRoutes = require('./routes/PostRoutes');
 const journalRoutes = require('./routes/JournalRoutes');
 const resourceRoutes = require('./routes/ResourcesRoutes');
+const professionalRoutes = require('./routes/ProfessionalRoutes');
 
 dotenv.config();
 
@@ -46,7 +47,7 @@ app.use('/api/journal',journalRoutes);
 // use the Resource route
 app.use('/api/resource',resourceRoutes);
 
-
+app.use('/api/professional',professionalRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

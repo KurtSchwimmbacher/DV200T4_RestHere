@@ -14,14 +14,17 @@ router.get('/', async (req, res) => {
 
 // Route to add a new professional
 router.post('/create', async (req, res) => {
-    const { name, email, specialty, profilePicture } = req.body;
+    const { name, email, specialty, profilePicture, user } = req.body; // Include user in the request body
     try {
-        const professional = new Professional({ name, email, specialty, profilePicture });
+        const professional = new Professional({ name, email, specialty, profilePicture, user });
         await professional.save();
         res.status(201).json({ message: 'Professional added successfully' });
     } catch (err) {
+        console.error('Error adding professional:', err); // Log the error for debugging
         res.status(500).json({ error: 'Failed to add professional' });
     }
 });
+
+
 
 module.exports = router;
