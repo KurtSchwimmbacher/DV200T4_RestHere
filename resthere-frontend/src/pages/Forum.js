@@ -68,10 +68,10 @@ const Forum = () => {
           </Col>
         </Row>
         {/* card row */}
-        <Row className='mt-3'>
+        <Row lg={4} md={6} sm={12}  className='mt-3'>
           {filteredPosts.length > 0 ? (
             filteredPosts.map(post => (
-              <Col key={post._id}>
+              <Col className='mb-3' key={post._id}>
                 <PostCard
                   postId={post._id}
                   title={post.title}

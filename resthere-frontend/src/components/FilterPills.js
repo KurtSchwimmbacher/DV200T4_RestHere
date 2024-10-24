@@ -5,7 +5,7 @@ import '../css/Resources.css';
 const FilterPills = ({ page, onFilterChange }) => {
   const filters = {
     forum: ['All', 'Advice', 'Help', 'Chatting'],
-    resources: ['All', 'Video', 'Article', 'Tutorials'],
+    resources: ['All', 'Video', 'Article', 'Tutorial'],
   };
 
   const selectedFilters = filters[page] || filters.resources;
