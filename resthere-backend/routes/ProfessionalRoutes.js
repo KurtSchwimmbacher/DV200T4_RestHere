@@ -1,0 +1,27 @@
+const express = require('express');
+const router = express.Router();
+const Professional = require('../models/Professional');
+
+// Route to get all professionals
+router.get('/', async (req, res) => {
+    try {
+        const professionals = await Professional.find();
+        res.status(200).json(professionals);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch professionals' });
+    }
+});
+
+// Route to add a new professional
+router.post('/create', async (req, res) => {
+    const { name, email, specialty, profilePicture } = req.body;
+    try {
+        const professional = new Professional({ name, email, specialty, profilePicture });
+        await professional.save();
+        res.status(201).json({ message: 'Professional added successfully' });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to add professional' });
+    }
+});
+
+module.exports = router;
