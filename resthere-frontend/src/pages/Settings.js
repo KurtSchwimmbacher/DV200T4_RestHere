@@ -124,6 +124,7 @@ const Settings = () => {
                   <ResourceCard
                     title={resource.title}
                     text={resource.content}
+                    tags={resource.tags}
                     onEditClick={() => handleEditResource(resource)} // Handle edit click
                   />
                 </Col>

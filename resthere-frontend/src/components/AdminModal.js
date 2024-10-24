@@ -30,30 +30,54 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        try {
-            const response = await axios.post('http://localhost:5000/api/resource/create', {
-                title,
-                content,
-                user: userID, 
-                tags,
-                resourceUrl,
-            });
 
-            console.log(response.data.message)
-            alert(response.data.message); // Success message from the backend
+        // for editing resources
+        if(resourceData){
+            try {
+                console.log(resourceData._id)
+                const response = await axios.patch(`http://localhost:5000/api/resource/update/${resourceData._id}`,{
+                    title,
+                    content,
+                    tags,
+                    resourceUrl,
+                });
 
+                console.log(response.data);
+                alert(response.data.message);
+                handleClose();
 
-            // Reset form after submission
-            setTitle('');
-            setContent('');
-            setTags([]);
-            setResourceUrl('');
-            handleClose();
-        } catch (error) {
-            console.error("Error creating resource:", error);
-            alert(error.response?.data.msg || "An error occurred. Please try again.");
+            } catch (error) {
+                console.error("Error creating resource:", error);
+                alert(error.response?.data.msg || "An error occurred. Please try again.");
+            }
         }
+        // if not editing
+        else{
+            try {
+                const response = await axios.post('http://localhost:5000/api/resource/create', {
+                    title,
+                    content,
+                    user: userID, 
+                    tags,
+                    resourceUrl,
+                });
+    
+                console.log(response.data.message)
+                alert(response.data.message); // Success message from the backend
+    
+    
+                // Reset form after submission
+                setTitle('');
+                setContent('');
+                setTags([]);
+                setResourceUrl('');
+                handleClose();
+            } catch (error) {
+                console.error("Error creating resource:", error);
+                alert(error.response?.data.msg || "An error occurred. Please try again.");
+            }
+        }
+        
     };
 
   return (

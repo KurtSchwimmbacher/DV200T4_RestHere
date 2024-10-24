@@ -14,6 +14,43 @@ router.get('/', async (req, res) => {
   });
   
 
+  // update a resource
+router.patch('/update/:id', async (req, res) => {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['title', 'content','tags', 'resourceUrl'];
+    const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+    
+    // Check if the updates are valid
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' });
+    }
+
+    try {
+        const resource = await Resources.findById(req.params.id);
+        
+        // If resource doesn't exist
+        if (!resource) {
+            return res.status(404).send({ message: 'Resource not found' });
+        }
+
+        // Apply updates to the post
+        updates.forEach(update => {
+            resource[update] = req.body[update];
+        });
+
+        await resource.save(); 
+
+        res.status(201).json({ 
+            message: 'Resource updated successfully', 
+            newResource: resource 
+        });
+
+    } catch (error) {
+        console.error('Error updating resource:', error);
+        res.status(400).send({ error: 'Failed to update resource' });
+    }
+});
+
 // new Resource route
 router.post('/create', async (req, res) => {
     const { title, content, user, tags } = req.body;
