@@ -80,6 +80,20 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
         
     };
 
+    const handleDelete = async (e) => {
+        if (resourceData._id) {
+            try {
+                const response = await axios.delete(`http://localhost:5000/api/resource/delete/${resourceData._id}`);
+                alert(response.data.message);
+                handleClose();
+                
+            } catch (error) {
+                console.error(`Error deleting resource`, error);
+                alert(`An error occurred while deleting the resource. Please try again.`);
+            }
+        }
+    };
+
   return (
     <Modal  show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -105,7 +119,7 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
                 {/* icons */}
                 <div className='icon-con'>
                     {/* <PencilFill className='pencil-icon' /> */}
-                    <TrashFill className='trash-icon'  />
+                    <TrashFill className='trash-icon' onClick={handleDelete}  />
                 </div>
             
             </Form.Group>

@@ -64,7 +64,7 @@ const Resources= () => {
             <Row className='mt-3'>
               {resources.map((resource) => (
                 <Col key={resource._id}>
-                  <ResourceCard title={resource.title} text={resource.content} />
+                  <ResourceCard title={resource.title} text={resource.content} tags={resource.tags} />
                 </Col>
               ))}
             </Row>
