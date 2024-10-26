@@ -27,7 +27,7 @@ const Home = () => {
             <Row className='features-row-home-1'>
               <Col>
                 <div className='journal-feature-home feature-left'>
-                  <h3 className='feature-title'>Log your thoughts</h3>
+                  <h3 className='feature-title'>Log your <i>thoughts</i></h3>
                   <h4 className='feature-subtitle'>start journaling today</h4>
                   <Button 
                     variant='secondary' 
@@ -40,7 +40,7 @@ const Home = () => {
               </Col>
               <Col>
                 <div className='journal-feature-home feature-right'>
-                  <h3 className='feature-title'>Reach out for help</h3>
+                  <h3 className='feature-title'>Reach out for <i>help</i></h3>
                   <h4 className='feature-subtitle'>start messaging professionals</h4>
                   <Button 
                     variant='secondary' 

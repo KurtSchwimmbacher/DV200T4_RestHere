@@ -5,6 +5,8 @@ import Col from 'react-bootstrap/Col';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
+import { useSelector } from 'react-redux';
+
 import Calender from '../components/Calender.js';
 import UnifiedOffCanvas from '../components/UnifiedOffCanvas.js';
 import '../css/Journal.css';
@@ -12,6 +14,8 @@ import '../css/Journal.css';
 const Journaling = () => {
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
+
+  const user = useSelector((state) => state.user);
 
   const handleShowOffCanvas = () => {
     // setSelectedEntry(null); // Clear previous data when creating a new entry
@@ -41,8 +45,10 @@ const Journaling = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Button variant='secondary' onClick={handleShowOffCanvas}>New Journal</Button>
+          <Col className='new-journal-entry-btn-con'>
+            {user && (
+              <Button className='new-journal-entry-btn mb-4' variant='secondary' onClick={handleShowOffCanvas}>New Journal Entry</Button>
+            )}
           </Col>
         </Row>
         <Row>

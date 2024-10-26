@@ -81,3 +81,15 @@
   cursor: pointer;
 }
 
+.new-journal-entry-btn-con{
+  width: 100%;
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+.new-journal-entry-btn{
+  font-family: "Montserrat Alternates", system-ui !important;
+  font-weight: 300 !important;
+
+
+}

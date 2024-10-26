@@ -47,6 +47,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
+  .journal-feature-home i{
+    color: #A9C4A0 !important;
+    font-family: "Playwrite US Trad", system-ui !important;
+    font-optical-sizing: auto;
+  }
+
   .journal-feature-home:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
