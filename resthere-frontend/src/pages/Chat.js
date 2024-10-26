@@ -8,8 +8,15 @@ import ChatContainer from '../components/ChatContainer';
 import NewProfessionalModal from '../components/NewProfessionalModal'; // Import the new modal component
 import { Button } from 'react-bootstrap';
 
+import { useSelector } from 'react-redux';
+
+import '../css/Chat.css';
+
 const Chat = () => {
   const [showModal, setShowModal] = useState(false);
+
+  const user = useSelector((state) => state.user);
+  const isAdmin = user.isAdmin;
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -28,11 +35,14 @@ const Chat = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Button variant="primary" onClick={handleShow}>
-              Add New Professional
-            </Button>
-          </Col>
+          {isAdmin === 'admin' && (
+            <Col className='new-prof-col'>
+              <Button className='add-new-professional-btn' variant="secondary" onClick={handleShow}>
+                Add New Professional
+              </Button>
+            </Col>
+          )}
+
         </Row>
         <Row>
           <Col>

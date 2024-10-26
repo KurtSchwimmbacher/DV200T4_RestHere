@@ -4,31 +4,36 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+import '../css/Chat.css';
+
 const NewProfessionalModal = ({ show, handleClose, refreshProfessionals }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [specialty, setSpecialty] = useState('');
-  const [profilePicture, setProfilePicture] = useState('');
   const [availability, setAvailability] = useState('');
+  const [bio, setBio] = useState('');
 
-    const user = useSelector((state) => state.user);
-    const userID = user.userID;
+
+  const user = useSelector((state) => state.user);
+  const userID = user.userID;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newProfessional = {
-      name,
-      email,
-      specialty,
-      profilePicture,
-      availability,
-      userID
+      name: name,
+      email: email,
+      specialty: specialty,
+      bio: bio,
+      availability: availability,
+      user: userID
     };
 
+    console.log(newProfessional)
     try {
-      await axios.post('http://localhost:5000/api/professional/create', newProfessional); 
+      const response = await axios.post('http://localhost:5000/api/professional/create', newProfessional); 
       refreshProfessionals(); 
+      alert(response.data.message)
       handleClose(); 
     } catch (error) {
       console.error('Error creating professional:', error);
@@ -59,8 +64,8 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals }) => {
           </Form.Group>
 
           <Form.Group controlId="formBasicProfilePicture">
-            <Form.Label>Profile Picture URL</Form.Label>
-            <Form.Control type="text" placeholder="Enter profile picture URL" value={profilePicture} onChange={(e) => setProfilePicture(e.target.value)} />
+            <Form.Label>Bio</Form.Label>
+            <Form.Control type="text" placeholder="" as="textarea" value={bio} onChange={(e) => setBio(e.target.value)} />
           </Form.Group>
 
           <Form.Group controlId="formBasicAvailability">
@@ -68,7 +73,7 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals }) => {
             <Form.Control type="text" placeholder="Enter availability" value={availability} onChange={(e) => setAvailability(e.target.value)} />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="danger" className='mt-2 add-prof-btn' type="submit">
             Add Professional
           </Button>
         </Form>

@@ -14,12 +14,13 @@ const ProfessionalSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
-    profilePicture: { 
-        type: String 
+    bio: {
+        type: String,
+        required: true
     },
     availability: { 
-        type: Boolean, 
-        default: true 
+        type: String, 
+        default: "Not Available" 
     },
     user: { 
         type: mongoose.Schema.Types.ObjectId, 

@@ -55,7 +55,7 @@ const PostContainer = ({ handleShow }) => {
             // map each post
             userPosts.map((post) => (
                 // ensure unique key for each column
-                <Col key={post._id}>
+                <Col lg={4} md={6} sm={12} key={post._id}>
                     {/* use data from db to populate card info */}
                     <PostCard
                         postId={post._id}

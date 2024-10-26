@@ -120,7 +120,7 @@ const Settings = () => {
             </Row>
             <Row>
               {resources.map((resource) => (
-                <Col key={resource._id}>
+                <Col lg={4} md={6} sm={12} key={resource._id}>
                   <ResourceCard
                     title={resource.title}
                     text={resource.content}

@@ -21,7 +21,7 @@ const ChatContainer = () => {
   useEffect(() => {
     const fetchProfessionals = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/professionals');
+        const response = await axios.get('http://localhost:5000/api/professional/');
         setProfessionals(response.data);
       } catch (error) {
         console.error('Error fetching professionals:', error);
@@ -35,10 +35,11 @@ const ChatContainer = () => {
     <Container>
       <Row>
         {professionals.map((professional) => (
-          <Col key={professional._id}>
+          <Col lg={4} md={6} sm={12} key={professional._id}>
             <ChatCard 
               title={professional.name} 
-              text={professional.bio} 
+              text={professional.specialty} 
+              availability={professional.availability}
               handleShow={() => handleShow(professional)} 
             />
           </Col>

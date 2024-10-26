@@ -52,3 +52,20 @@
     color: #dc3545; 
     content: url('https://icons.getbootstrap.com/assets/icons/trash-fill.svg'); 
   }
+
+
+
+  .add-new-professional-btn{
+    font-family: "Montserrat Alternates", system-ui !important;
+    font-weight: 300;
+  }
+
+  .new-prof-col{
+    display: flex !important;
+    justify-content: end;
+  }
+
+  .add-prof-btn{
+    display: flex !important; 
+    justify-content: center;
+  }
