@@ -12,6 +12,7 @@ import Vector4 from '../assets/Home_BR.svg';
 
 // link css
 import '../css/Home.css';
+import { Button } from 'react-bootstrap';
 
 const Home = () => {
   return (
@@ -24,16 +25,45 @@ const Home = () => {
                 </Col>
             </Row>
               
-            <Row>
+            <Row className='features-row-home-1'>
               <Col>
-                <img src={Vector1}>
-                </img>
+                <div className='journal-feature-home feature-left'>
+                  <h3>Log your thoughts</h3>
+                  <h4>start journaling today</h4>
+                  <Button variant='secondary'>Journal</Button>
+                  {/* <img src={Vector1} className='vector-top-left-home'></img> */}
+                </div>
+                
               </Col>
               <Col>
-                <img src={Vector2}>
-                </img>
+              <div className='journal-feature-home feature-right'>
+                  <h3>Reach out for help</h3>
+                  <h4>start messaging professionals</h4>
+                  <Button variant='secondary'>Journal</Button>
+                  {/* <img src={Vector2} className='vector-top-left-home'></img> */}
+                </div>
               </Col>
             </Row>
+
+            <Row className='features-row-home-2'>
+              <Col>
+              <div className='journal-feature-home feature-left'>
+                  
+                  <h4>Check out helpful resource</h4>
+                  <Button variant='danger' className='resource-btn-home'>Resouces</Button>
+                  {/* <img src={Vector3} className='vector-top-left-home'></img> */}
+                </div>
+              </Col>
+              <Col>
+              <div className='journal-feature-home feature-right'>
+                  
+                  <h4>Share with others on the forum</h4>
+                  <Button variant='danger' className='resource-btn-home'>Forum</Button>
+                  {/* <img src={Vector4} className='vector-top-left-home'></img> */}
+                </div>
+              </Col>
+            </Row>
+
         </Container>
     </div>
   );

@@ -4,7 +4,7 @@
     background-size: contain; 
     background-position: center;  
     height: 98.5vh;  
-    width: 100vw;   
+    width: 100vw !important;   
     display: flex;
     flex-direction: column;
     margin-top: -8vh;
@@ -27,3 +27,51 @@
     font-family: "Playwrite US Trad", system-ui !important;
     font-optical-sizing: auto;
   }
+
+
+  .journal-feature-home {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .vector-top-left-home {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Place SVG behind text */
+  }
+  
+  .features-row-home-1, .features-row-home-2 {
+    align-items: center;
+    justify-content: center;
+
+    display: flex;
+    align-items: center;
+    height: 40%;
+  }
+  
+  .home-title h1 {
+    font-size: 2.5em;
+    margin: 0;
+  }
+
+ 
+
+  .journal-feature-home h3, .journal-feature-home h4 {
+  margin: 10px 0;
+}
+
+.journal-feature-home button {
+  margin-top: 10px;
+}
+
+.feature-left{
+  margin-left: -35%;
+}
+
+.feature-right{
+  margin-left: 35%;
+}
