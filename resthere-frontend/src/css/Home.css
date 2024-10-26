@@ -33,15 +33,53 @@
     position: relative;
     text-align: center;
     padding: 20px;
+
+    background: #FFFFFF7A;
+    backdrop-filter: blur(60px);
+    border-radius: 25px;
+
+    font-family: "Montserrat Alternates", system-ui !important;
+    font-weight: 300 !important;
+  }
+
+
+  .journal-feature-home {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
+  .journal-feature-home:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  .feature-title{
+    font-family: "Montserrat Alternates", system-ui !important;
+    font-weight: 400 !important;
+  }
+
+  .feature-subtitle{
+    font-family: "Montserrat Alternates", system-ui !important;
+    font-weight: 200 !important;
+    font-size: 20px;
+  }
+
+  .home-feature-btn{
+    font-family: "Montserrat Alternates", system-ui !important;
+    font-weight: 300;
+  }
+
+  .resource-btn-home{
+    font-family: "Montserrat Alternates", system-ui !important; 
+    font-weight: 300;
+  }
+
   .vector-top-left-home {
     width: 100%;
     height: auto;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1; /* Place SVG behind text */
   }
   
   .features-row-home-1, .features-row-home-2 {
@@ -69,9 +107,10 @@
 }
 
 .feature-left{
-  margin-left: -35%;
+  margin-right: 35%;
 }
 
 .feature-right{
   margin-left: 35%;
 }
+

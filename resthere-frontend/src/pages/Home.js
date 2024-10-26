@@ -1,20 +1,19 @@
-// src/pages/Home.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
-import Vector1 from '../assets/Home_TL.svg';
-import Vector2 from '../assets/Home_TR.svg';
-import Vector3 from '../assets/Home_BL.svg';
-import Vector4 from '../assets/Home_BR.svg';
-
-
-// link css
-import '../css/Home.css';
 import { Button } from 'react-bootstrap';
 
+import '../css/Home.css';
+
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <div className="home-container">
         <Container>
@@ -28,42 +27,58 @@ const Home = () => {
             <Row className='features-row-home-1'>
               <Col>
                 <div className='journal-feature-home feature-left'>
-                  <h3>Log your thoughts</h3>
-                  <h4>start journaling today</h4>
-                  <Button variant='secondary'>Journal</Button>
-                  {/* <img src={Vector1} className='vector-top-left-home'></img> */}
+                  <h3 className='feature-title'>Log your thoughts</h3>
+                  <h4 className='feature-subtitle'>start journaling today</h4>
+                  <Button 
+                    variant='secondary' 
+                    className='home-feature-btn' 
+                    onClick={() => handleNavigate('/journaling')}
+                  >
+                    Journal
+                  </Button>
                 </div>
-                
               </Col>
               <Col>
-              <div className='journal-feature-home feature-right'>
-                  <h3>Reach out for help</h3>
-                  <h4>start messaging professionals</h4>
-                  <Button variant='secondary'>Journal</Button>
-                  {/* <img src={Vector2} className='vector-top-left-home'></img> */}
+                <div className='journal-feature-home feature-right'>
+                  <h3 className='feature-title'>Reach out for help</h3>
+                  <h4 className='feature-subtitle'>start messaging professionals</h4>
+                  <Button 
+                    variant='secondary' 
+                    className='home-feature-btn' 
+                    onClick={() => handleNavigate('/chat')}
+                  >
+                    Chat
+                  </Button>
                 </div>
               </Col>
             </Row>
 
             <Row className='features-row-home-2'>
               <Col>
-              <div className='journal-feature-home feature-left'>
-                  
-                  <h4>Check out helpful resource</h4>
-                  <Button variant='danger' className='resource-btn-home'>Resouces</Button>
-                  {/* <img src={Vector3} className='vector-top-left-home'></img> */}
+                <div className='journal-feature-home feature-left'>
+                  <h4 className='feature-subtitle'>Check out helpful resource</h4>
+                  <Button 
+                    variant='danger' 
+                    className='home-feature-btn resource-btn-home'
+                    onClick={() => handleNavigate('/resources')}
+                  >
+                    Resources
+                  </Button>
                 </div>
               </Col>
               <Col>
-              <div className='journal-feature-home feature-right'>
-                  
-                  <h4>Share with others on the forum</h4>
-                  <Button variant='danger' className='resource-btn-home'>Forum</Button>
-                  {/* <img src={Vector4} className='vector-top-left-home'></img> */}
+                <div className='journal-feature-home feature-right'>
+                  <h4 className='feature-subtitle'>Share on the forum</h4>
+                  <Button 
+                    variant='danger' 
+                    className='home-feature-btn resource-btn-home'
+                    onClick={() => handleNavigate('/forum')}
+                  >
+                    Forum
+                  </Button>
                 </div>
               </Col>
             </Row>
-
         </Container>
     </div>
   );
