@@ -15,6 +15,8 @@ import SortDropdown from '../components/SortDropdown';
 const Resources = () => {
   const [resources, setResources] = useState([]);
   const [activeFilter, setActiveFilter] = useState('All'); // Initialize active filter state
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   // Fetch resources from the backend
   useEffect(() => {
@@ -35,10 +37,21 @@ const Resources = () => {
     setActiveFilter(filter);
   };
 
+   // Function to handle search input change
+   const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+
   // Filter resources based on the active filter
   const filteredResources = resources.filter(resource => {
-    if (activeFilter === 'All') return true; // Show all resources
-    return resource.tags && resource.tags.includes(activeFilter); // Filter based on tags
+      // fetch resources on active filter / return all resources if filter is All
+      const matchesFilter = activeFilter === "All" || (resource.tags && resource.tags.includes(activeFilter));
+      // fetch resouce if title or content matches search query
+      const matchesSearch = resource.title.toLowerCase().includes(searchQuery) || resource.content.toLowerCase().includes(searchQuery);
+  
+      return matchesFilter && matchesSearch;
+  
   });
 
   return (
@@ -53,7 +66,7 @@ const Resources = () => {
         {/* Search bar row */}
         <Row>
           <Col>
-            <SearchBar placeholder="Search for resources" />
+            <SearchBar placeholder="Search for resources" onChange={handleSearchChange} />
           </Col>
         </Row>
 
