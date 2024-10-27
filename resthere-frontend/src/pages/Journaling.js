@@ -46,7 +46,7 @@ const Journaling = () => {
         </Row>
         <Row>
           <Col className='new-journal-entry-btn-con'>
-            {user && (
+            {user.username && (
               <Button className='new-journal-entry-btn mb-4' variant='secondary' onClick={handleShowOffCanvas}>New Journal Entry</Button>
             )}
           </Col>
