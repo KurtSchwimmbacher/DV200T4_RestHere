@@ -1,20 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 import '../css/SignupLoginForm.css';
 
 const SignupLoginForm = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  // Determine initial mode based on query
+  const initialMode = queryParams.get('mode') === 'signup' ? false : true;
+  
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(true);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     username: '',
     confirmPassword: '',
   });
+
   const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    // Update form mode based on URL parameter when the component mounts
+    setIsLogin(initialMode);
+  }, [initialMode]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

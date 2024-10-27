@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';  
+import { Link, useLocation } from 'react-router-dom';  
 import { useSelector } from 'react-redux';
 
 // Import the logo
@@ -14,9 +14,15 @@ import logo from '../assets/Logo.svg';
 import '../css/NavigationBar.css';
 
 function NavigationBar() {
+  // hook to get current location
+  const location = useLocation();
+
   const [activeTab, setActiveTab] = useState('login'); // State to manage active tab
   const user = useSelector((state) => state.user);
-  console.log(user)
+
+
+  // Determine the active page based on the current URL
+  const isActive = (path) => location.pathname === path;
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -34,10 +40,10 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className='navbar-links me-auto'>
-            <Nav.Link as={Link} to="/journaling">Journal</Nav.Link>
-            <Nav.Link as={Link} to="/resources">Resources</Nav.Link>
-            <Nav.Link as={Link} to="/forum">Forum</Nav.Link>
-            <Nav.Link as={Link} to="/chat">Chat</Nav.Link>
+            <Nav.Link as={Link} to="/journaling" className={isActive('/journaling') ? 'active' : ''}>Journal</Nav.Link>
+            <Nav.Link as={Link} to="/resources" className={isActive('/resources') ? 'active' : ''}>Resources</Nav.Link>
+            <Nav.Link as={Link} to="/forum" className={isActive('/forum') ? 'active' : ''}>Forum</Nav.Link>
+            <Nav.Link as={Link} to="/chat" className={isActive('/chat') ? 'active' : ''}>Chat</Nav.Link>
           </Nav>
 
           {/* Button group for Login/Sign Up or Account */}
@@ -54,7 +60,7 @@ function NavigationBar() {
               <>
                 <Button 
                   as={Link} 
-                  to="/signup-login" 
+                  to="/signup-login?mode=login"  
                   variant={activeTab === 'login' ? 'primary' : 'outline-primary'} 
                   onClick={() => setActiveTab('login')}
                 >
@@ -62,7 +68,7 @@ function NavigationBar() {
                 </Button>
                 <Button 
                   as={Link} 
-                  to="/signup-login" 
+                  to="/signup-login?mode=signup" 
                   variant={activeTab === 'signup' ? 'primary' : 'outline-primary'} 
                   onClick={() => setActiveTab('signup')}
                 >
