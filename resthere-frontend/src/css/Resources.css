@@ -67,3 +67,8 @@
 .chat-expand-arrow:hover{
     cursor: pointer;
 }
+
+.filter-pill.active {
+    background-color: #A9C4A0 !important; 
+    color: white !important; 
+  }
