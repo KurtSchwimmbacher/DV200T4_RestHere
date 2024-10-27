@@ -16,11 +16,12 @@ import '../css/Journal.css';
 const Forum = () => {
   const [posts, setPosts] = useState([]); // State to hold posts
   const [activeFilter, setActiveFilter] = useState('All'); // State for active filter
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Function to fetch all posts
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/posts/'); // Replace with your API endpoint
+      const response = await axios.get('http://localhost:5000/api/posts/'); 
       setPosts(response.data);
       console.log(response.data);
     } catch (error) {
@@ -37,10 +38,21 @@ const Forum = () => {
     setActiveFilter(filter);
   };
 
-  // Filter posts based on the active filter
+
+  // Function to handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  // Filter posts based on the active filter  and search query
   const filteredPosts = posts.filter(post => {
-    if (activeFilter === 'All') return true; // Show all posts
-    return post.tags && post.tags.includes(activeFilter); // Filter based on tags
+    // fetch posts on active filter / return all posts if filter is All
+    const matchesFilter = activeFilter === "All" || (post.tags && post.tags.includes(activeFilter));
+    // fetch posts if title or content matches search query
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery) || post.content.toLowerCase().includes(searchQuery);
+
+    return matchesFilter && matchesSearch;
+
   });
 
   return (
@@ -55,7 +67,7 @@ const Forum = () => {
         {/* search bar row */}
         <Row>
           <Col>
-            <SearchBar />
+            <SearchBar placeholder="Search posts" onChange={handleSearchChange} />
           </Col>
         </Row>
         {/* filter sort row */}
@@ -85,7 +97,7 @@ const Forum = () => {
             ))
           ) : (
             <Col>
-              <p>No posts available.</p> {/* Fallback message if no posts are found */}
+              <p>No posts available.</p> 
             </Col>
           )}
         </Row>

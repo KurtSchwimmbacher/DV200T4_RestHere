@@ -53,7 +53,7 @@ const Resources = () => {
         {/* Search bar row */}
         <Row>
           <Col>
-            <SearchBar />
+            <SearchBar placeholder="Search for resources" />
           </Col>
         </Row>
 
