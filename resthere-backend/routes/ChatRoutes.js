@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Chat = require('../models/Chat');
 
+const Professional = require('../models/Professional');
+
 // Route to get all chats for a particular user with a professional
 router.get('/:userId/:professionalId', async (req, res) => {
     const { userId, professionalId } = req.params;
@@ -15,6 +17,25 @@ router.get('/:userId/:professionalId', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch chat messages' });
     }
 });
+
+// Get all professionals the user has been messaging
+router.get('/professionals/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const chatSessions = await Chat.find({ sender: userId }).distinct('recipient');
+        console.log("Chat Sessions Found:", chatSessions); // Log to see what the chat query returns
+
+        const professionals = await Professional.find({ _id: { $in: chatSessions } });
+        console.log("Professionals Found:", professionals); // Log to see if professionals are being fetched
+
+        res.status(200).json(professionals);
+    } catch (error) {
+        console.error('Error fetching professionals:', error); // Detailed error logging
+        res.status(500).json({ error: 'Error fetching professionals' });
+    }
+});
+
 
 // Route to send a new chat message
 router.post('/send', async (req, res) => {

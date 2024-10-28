@@ -77,11 +77,11 @@ const Settings = () => {
         {/* User Profile Section */}
         <Row className='mb-4 mt-5'>
           <Col className='text-center'>
-            <img
+            {/* <img
               src={user.profilePicture}
               alt={`${user.username}'s Profile`}
               className='profile-picture'
-            />
+            /> */}
             <h2>{user.username}</h2>
             <p>{user.postsCount} {user.postsCount === 1 ? 'Post' : 'Posts'}</p>
           </Col>
