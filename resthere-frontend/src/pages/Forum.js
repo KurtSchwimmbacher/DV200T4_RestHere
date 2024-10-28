@@ -14,9 +14,11 @@ import SortDropdown from '../components/SortDropdown';
 import '../css/Journal.css';
 
 const Forum = () => {
-  const [posts, setPosts] = useState([]); // State to hold posts
-  const [activeFilter, setActiveFilter] = useState('All'); // State for active filter
+  const [posts, setPosts] = useState([]); 
+  const [activeFilter, setActiveFilter] = useState('All'); 
   const [searchQuery, setSearchQuery] = useState('');
+
+  const [sortOption, setSortOption] = useState('latest');
 
   // Function to fetch all posts
   const fetchPosts = async () => {
@@ -44,8 +46,29 @@ const Forum = () => {
     setSearchQuery(e.target.value.toLowerCase());
   };
 
+
+  // Function to handle sorting change
+  const handleSortChange = (option) => {
+    setSortOption(option);
+  };
+
+
+  // Function to sort posts based on selected option
+  const sortPosts = (posts) => {
+    if (sortOption === 'latest') {
+      return posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (sortOption === 'oldest') {
+      return posts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    } else if (sortOption === 'asc') {
+      return posts.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortOption === 'desc') {
+      return posts.sort((a, b) => b.title.localeCompare(a.title));
+    }
+    return posts;
+  };
+
   // Filter posts based on the active filter  and search query
-  const filteredPosts = posts.filter(post => {
+  const filteredPosts = sortPosts(posts.filter(post => {
     // fetch posts on active filter / return all posts if filter is All
     const matchesFilter = activeFilter === "All" || (post.tags && post.tags.includes(activeFilter));
     // fetch posts if title or content matches search query
@@ -53,7 +76,7 @@ const Forum = () => {
 
     return matchesFilter && matchesSearch;
 
-  });
+  }));
 
   return (
     <div className='journal-container'>
@@ -76,7 +99,7 @@ const Forum = () => {
             <FilterPills page={'forum'} onFilterChange={handleFilterChange} />
           </Col>
           <Col className='sort-dropdown-col'>
-            <SortDropdown />
+            <SortDropdown onSortChange={handleSortChange} />
           </Col>
         </Row>
         {/* card row */}

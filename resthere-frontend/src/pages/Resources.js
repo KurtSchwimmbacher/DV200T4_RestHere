@@ -17,6 +17,8 @@ const Resources = () => {
   const [activeFilter, setActiveFilter] = useState('All'); // Initialize active filter state
   const [searchQuery, setSearchQuery] = useState('');
 
+  const [sortOption, setSortOption] = useState('latest');
+
 
   // Fetch resources from the backend
   useEffect(() => {
@@ -43,8 +45,27 @@ const Resources = () => {
   };
 
 
+    // Function to handle sorting change
+    const handleSortChange = (option) => {
+      setSortOption(option);
+    };
+
+      // Function to sort resources based on selected option
+  const sortResources = (resources) => {
+    if (sortOption === 'latest') {
+      return resources.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (sortOption === 'oldest') {
+      return resources.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    } else if (sortOption === 'asc') {
+      return resources.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortOption === 'desc') {
+      return resources.sort((a, b) => b.title.localeCompare(a.title));
+    }
+    return resources;
+  };
+
   // Filter resources based on the active filter
-  const filteredResources = resources.filter(resource => {
+  const filteredResources = sortResources(resources.filter(resource => {
       // fetch resources on active filter / return all resources if filter is All
       const matchesFilter = activeFilter === "All" || (resource.tags && resource.tags.includes(activeFilter));
       // fetch resouce if title or content matches search query
@@ -52,7 +73,7 @@ const Resources = () => {
   
       return matchesFilter && matchesSearch;
   
-  });
+  }));
 
   return (
     <div className='journal-container'>
@@ -76,7 +97,7 @@ const Resources = () => {
             <FilterPills page={'resources'} onFilterChange={handleFilterChange} /> {/* Pass handleFilterChange */}
           </Col>
           <Col className='sort-dropdown-col'>
-            <SortDropdown />
+            <SortDropdown onSortChange={handleSortChange} />
           </Col>
         </Row>
 
