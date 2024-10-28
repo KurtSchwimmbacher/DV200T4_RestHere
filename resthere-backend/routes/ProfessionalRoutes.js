@@ -33,6 +33,35 @@ router.post('/create', async (req, res) => {
     }
 });
  
+router.patch('/update/:id', async (req, res) =>{
+    const { id } = req.params;
+    const updates = req.body; 
 
+    try {
+        const updatedProfessional = await Professional.findByIdAndUpdate(id, updates, { new: true });
+        if (!updatedProfessional) {
+            return res.status(404).json({ error: 'Professional not found' });
+        }
+        res.status(200).json({ message: 'Professional updated successfully', professional: updatedProfessional });
+    } catch (err) {
+        console.error('Error updating professional:', err);
+        res.status(500).json({ error: 'Failed to update professional' });
+    }
+});
+
+router.delete('/delete:id' , async (req,res) =>{
+    const { id } = req.params;
+
+    try {
+        const deletedProfessional = await Professional.findByIdAndDelete(id);
+        if (!deletedProfessional) {
+            return res.status(404).json({ error: 'Professional not found' });
+        }
+        res.status(200).json({ message: 'Professional deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting professional:', err);
+        res.status(500).json({ error: 'Failed to delete professional' });
+    }
+})
 
 module.exports = router;

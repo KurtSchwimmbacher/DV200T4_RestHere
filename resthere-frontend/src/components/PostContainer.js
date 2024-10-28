@@ -36,7 +36,7 @@ const PostContainer = ({ handleShow }) => {
             fetchUserPosts(user.userID);
         }
         // re run when userID changes
-    },[user.userID])
+    },[user.userID,])
 
 
     // Callback function to refresh posts (for after editing posts)

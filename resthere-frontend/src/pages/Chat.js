@@ -5,8 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ChatOffCanvas from '../components/ChatOffCanvas';
 import ChatContainer from '../components/ChatContainer';
-import NewProfessionalModal from '../components/NewProfessionalModal'; // Import the new modal component
+import NewProfessionalModal from '../components/NewProfessionalModal'; 
 import { Button } from 'react-bootstrap';
+import ChatMessageOffCanvas from '../components/ChatMessageOffCanvas'; 
 
 import { useSelector } from 'react-redux';
 
@@ -15,14 +16,19 @@ import '../css/Chat.css';
 const Chat = () => {
   const [showModal, setShowModal] = useState(false);
 
+  const [showChatCanvas, setShowChatCanvas] = useState(false);
+
   const user = useSelector((state) => state.user);
   const isAdmin = user.isAdmin;
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
+  const handleShowChat = () => setShowChatCanvas(true);
+  const handleCloseChat = () => setShowChatCanvas(false);
+
   const refreshProfessionals = () => {
-    // Logic to refresh the professionals list, if applicable
+    // Logic to refresh the professionals list
   };
 
   return (
@@ -44,6 +50,16 @@ const Chat = () => {
           )}
 
         </Row>
+
+        {/* chats button */}
+        <Row>
+          <Col className='new-prof-col mt-5'>
+            <Button className='add-new-professional-btn' variant='secondary' onClick={handleShowChat}>
+              Chats
+            </Button>
+          </Col>
+        </Row>
+
         <Row>
           <Col>
             <ChatContainer />
@@ -51,7 +67,8 @@ const Chat = () => {
         </Row>
       </Container>
       <ChatOffCanvas />
-      <NewProfessionalModal show={showModal} handleClose={handleClose} refreshProfessionals={refreshProfessionals} /> {/* Modal for adding new professional */}
+      <NewProfessionalModal show={showModal} handleClose={handleClose} refreshProfessionals={refreshProfessionals} /> 
+      <ChatMessageOffCanvas show={showChatCanvas} handleClose={handleCloseChat} />
     </div>
   );
 };

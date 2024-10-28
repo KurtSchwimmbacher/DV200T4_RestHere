@@ -28,4 +28,56 @@ router.post('/send', async (req, res) => {
     }
 });
 
+router.patch('/edit/:messageId', async (req,res) => {
+    const { messageId } = req.params;
+    const { sender, message } = req.body;
+
+    try {
+        // Find the chat message by ID
+        const chat = await Chat.findById(messageId);
+
+        // Check if the chat exists and if the sender is the same as the chat sender
+        if (!chat) {
+            return res.status(404).json({ error: 'Chat message not found' });
+        }
+        if (chat.sender.toString() !== sender) {
+            return res.status(403).json({ error: 'You can only edit your own messages' });
+        }
+
+        // Update the chat message
+        chat.message = message;
+        await chat.save();
+        
+        res.status(200).json({ message: 'Message updated successfully', chat });
+    } catch (err) {
+        console.error('Error editing message:', err);
+        res.status(500).json({ error: 'Failed to edit message' });
+    }
+});
+
+router.delete('/delete/:messageId' , async (req, res) =>{
+    const { messageId } = req.params;
+    const { sender } = req.body; // Expecting sender to be passed in the request body
+
+    try {
+        // Find the chat message by ID
+        const chat = await Chat.findById(messageId);
+
+        // Check if the chat exists and if the sender is the same as the chat sender
+        if (!chat) {
+            return res.status(404).json({ error: 'Chat message not found' });
+        }
+        if (chat.sender.toString() !== sender) {
+            return res.status(403).json({ error: 'You can only delete your own messages' });
+        }
+
+        // Delete the chat message
+        await chat.remove();
+        res.status(200).json({ message: 'Message deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting message:', err);
+        res.status(500).json({ error: 'Failed to delete message' });
+    }
+});
+
 module.exports = router;

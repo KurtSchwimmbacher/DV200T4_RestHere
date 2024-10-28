@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card';
-import { Heart, Trash } from 'react-bootstrap-icons'; // Import Bootstrap icons
+import { Heart, Trash } from 'react-bootstrap-icons'; 
 
 import ProfileImage from '../assets/Profile.jpg';
 
