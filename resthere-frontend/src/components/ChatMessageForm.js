@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect,  useCallback } from "react";
 import { Form, Container, Row, Col, InputGroup, Button } from "react-bootstrap";
 import { TrashFill, SendFill } from 'react-bootstrap-icons'; 
 import axios from 'axios'; 
 import { useSelector } from "react-redux";
 
+import '../css/Chat.css';
+
 const ChatMessageForm = ({ professional }) => { 
     const [message, setMessage] = useState(''); 
+    const [messages, setMessages] = useState([]);
     const user = useSelector((state) => state.user);
 
     const handleSubmit = async (e) => {
@@ -29,18 +32,43 @@ const ChatMessageForm = ({ professional }) => {
 
             // Clear the message input after successful submission
             setMessage('');
+            fetchMessages();
         } catch (error) {
             console.error('Error sending message:', error);
             alert("Error sending chat: ", error)
         }
     };
 
+    const fetchMessages = useCallback(async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/chat/${user.userID}/${professional._id}`);
+            setMessages(response.data); 
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+        }
+    }, [user.userID, professional._id]);
+
+    useEffect(() => {
+        fetchMessages(); 
+    }, [fetchMessages]);
+
     return (
         <Container>
             {/* Previous messages row  */}
             <Row>
-                <Col>
-                    {/* map through previous messages */}
+                <Col className="mb-5">
+                    {messages.length > 0 ? (
+                        messages.map((msg, index) => (
+                            <div 
+                                key={index} 
+                                className={`message-bubble ${msg.sender === user.userID ? 'user-message' : 'professional-message'}`}
+                            >
+                                <strong>{msg.sender === user.userID ? "You" : professional.name}:</strong> {msg.message}
+                            </div>
+                        ))
+                    ) : (
+                        <p>No messages yet.</p>
+                    )}
                 </Col>
             </Row>
             <Row>

@@ -5,18 +5,18 @@ import ProfileImage from '../assets/Profile.jpg';
 
 import '../css/Chat.css';
 
-function ChatMessageCard() {
+function ChatMessageCard(name, lastMsg) {
   return (
     <Card className='chat-message-card d-flex flex-row align-items-center justify-content-between'>
       {/* Profile Image and Text */}
       <div className='d-flex align-items-center'>
-        <Card.Img 
+        {/* <Card.Img 
           variant="left" 
           src={ProfileImage} 
           className="profile-image"
-        />
+        /> */}
         <Card.Body className="ml-3">
-          <Card.Title className='message-title'>Card Title</Card.Title>
+          <Card.Title className='message-title'>name</Card.Title>
           <Card.Text className='last-message-content'>
             Last Message
           </Card.Text>
