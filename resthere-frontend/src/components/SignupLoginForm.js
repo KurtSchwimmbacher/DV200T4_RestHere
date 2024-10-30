@@ -56,6 +56,7 @@ const SignupLoginForm = () => {
             email: response.data.user.email,
             username: response.data.user.username,
             isAdmin: response.data.user.role,
+            profilePicture: response.data.user.profilePicture,
           },
         });
 

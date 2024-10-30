@@ -8,6 +8,7 @@ const initialState = {
     email: '',
     username: '',
     isAdmin: '',
+    profilePicture: '',
   },
 };
 
@@ -23,6 +24,7 @@ const reducer = (state = initialState, action) => {
           email: action.payload.email,
           username: action.payload.username,
           isAdmin: action.payload.isAdmin,
+          profilePicture: action.payload.profilePicture,
         },
       };
     case 'LOGOUT':

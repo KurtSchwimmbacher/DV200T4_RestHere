@@ -4,6 +4,32 @@ const jwt = require('jsonwebtoken');
 const validator = require('validator');  // New dependency for validation
 const User = require('../models/User');
 
+const multer = require('multer');
+const path = require('path');
+
+// Set up storage destination and filename format
+const storage = multer.diskStorage({
+  destination: './uploads/profile-pictures', // Store profile images here
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const upload = multer({ 
+  storage,
+  limits: { fileSize: 1024 * 1024 * 5 }, // Limit file size to 5MB
+  fileFilter: (req, file, cb) => {
+    // Allow only certain file types
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only images are allowed!'), false);
+    }
+  }
+});
+
+
+
 const router = express.Router();
 
 // sign up Route
@@ -101,6 +127,7 @@ router.post('/login', async (req, res) => {
                 email: user.email,
                 username: user.username,
                 role: user.role,
+                profilePicture: user.profilePicture,
             }
         });
     } catch (error) {
@@ -109,8 +136,34 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// Profile picture upload route
+router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req, res) => {
+  const { userId } = req.body;
+  
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
+  }
 
-// get user by 
+  try {
+    const imageUrl = `/uploads/profile-pictures/${req.file.filename}`;
+
+    // update user's profile picture
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { profilePicture: imageUrl },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'Profile picture uploaded successfully', profilePicture: user.profilePicture });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 
 

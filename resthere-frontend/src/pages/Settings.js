@@ -12,9 +12,13 @@ import UnifiedOffCanvas from '../components/UnifiedOffCanvas';
 import ResourceCard from '../components/ResourceCard';
 import '../css/settingsProfile.css';
 
+import ProfileImageUploadModal from '../components/ProfileImageUploadModal';
+
 const Settings = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  console.log(user)
 
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [selectedPost, setSelectedPost] = useState({ title: '', content: '', ID: '', tags: [] });
@@ -23,6 +27,11 @@ const Settings = () => {
   const [selectedResource, setSelectedResource] = useState(null); // State to store selected resource for editing
 
   const [refreshPostsFunc, setRefreshPostsFunc] = useState(null);
+
+  const [showUploadModal, setShowUploadModal] = useState(false);
+
+  const handleUploadModalOpen = () => setShowUploadModal(true);
+  const handleUploadModalClose = () => setShowUploadModal(false);
 
   useEffect(() => {
     if (user.isAdmin === 'admin') {
@@ -77,11 +86,13 @@ const Settings = () => {
         {/* User Profile Section */}
         <Row className='mb-4 mt-5'>
           <Col className='text-center'>
-            {/* <img
-              src={user.profilePicture}
+          {/* image to display users profile picture */}
+            <img
+              src={`http://localhost:5000${user.profilePicture}`}
               alt={`${user.username}'s Profile`}
               className='profile-picture'
-            /> */}
+              onClick={handleUploadModalOpen}
+            />
             <h2>{user.username}</h2>
             <p>{user.postsCount} {user.postsCount === 1 ? 'Post' : 'Posts'}</p>
           </Col>
@@ -149,6 +160,15 @@ const Settings = () => {
         handleClose={handleAdminModalClose}
         resourceData={selectedResource} // Pass the selected resource data
       />
+
+
+      {/* Profile Image Upload Modal */}
+      <ProfileImageUploadModal
+        show={showUploadModal}
+        handleClose={handleUploadModalClose}
+        user={user} // Pass user data to the modal
+      />
+
     </div>
   );
 };

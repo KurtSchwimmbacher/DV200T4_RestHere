@@ -24,7 +24,8 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-
+// Serve static files from uploads folder
+app.use('/uploads', express.static('uploads'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
