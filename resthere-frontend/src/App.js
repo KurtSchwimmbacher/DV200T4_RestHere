@@ -10,6 +10,7 @@ import Journaling from './pages/Journaling';
 import Forum from './pages/Forum';
 import SettingsProfile from './pages/Settings';
 import AdminPanel from './pages/Admin';
+import SinglePost from './pages/SinglePost';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/forum" element={<Forum />} />
         <Route path="/settings-profile" element={<SettingsProfile />} />
         <Route path="/admin-panel" element={<AdminPanel />} />
+        <Route path="/posts/:postId" element={<SinglePost />} />
       </Routes>
     </Router>
   );

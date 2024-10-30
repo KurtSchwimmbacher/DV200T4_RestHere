@@ -112,6 +112,7 @@ const Forum = () => {
                   title={post.title}
                   text={post.content}
                   // handleShow={handleShow}
+                  isProfilePage={false}
                   postTags={post.tags}
                   // pass refresh posts function
                   // refreshPosts={refreshPosts}

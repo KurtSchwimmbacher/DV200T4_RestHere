@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const PostContainer = ({ handleShow }) => {
 
@@ -66,6 +66,7 @@ const PostContainer = ({ handleShow }) => {
                         postTags={post.tags}
                         // pass refresh posts function
                         refreshPosts={refreshPosts}
+                        isProfilePage={true}
                     />
                 </Col>
             ))

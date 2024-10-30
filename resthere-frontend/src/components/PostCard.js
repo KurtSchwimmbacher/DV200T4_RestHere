@@ -1,14 +1,27 @@
 // src/components/postCard.js
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { ArrowUpRight } from 'react-bootstrap-icons'; // Import arrow icon
+import { ArrowUpRight } from 'react-bootstrap-icons'; 
 import { Nav } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 
 // Link CSS if necessary
 import '../css/Posts.css';
 
-const PostCard = ({ title, text, postId, handleShow, refreshPosts, postTags  }) => {
+const PostCard = ({ title, text, postId, handleShow, refreshPosts, postTags, isProfilePage}) => {
+
+  const navigate = useNavigate();
+
+  const handleArrowClick = () =>{
+    if(isProfilePage){
+      handleShow(title, text, postId,postTags, refreshPosts);
+    }
+    else{
+      navigate(`/posts/${postId}`);
+    }
+  }
+
   return (
     <Card className="custom-card">
       <div className="post-card-top">
@@ -21,7 +34,7 @@ const PostCard = ({ title, text, postId, handleShow, refreshPosts, postTags  }) 
           ))}
         </Nav>
 
-        <ArrowUpRight onClick={() => handleShow(title, text, postId,postTags, refreshPosts)} />
+        <ArrowUpRight onClick={() => handleArrowClick()} />
         
       </div>
       <Card.Body className='resource-card-body'>
