@@ -18,7 +18,8 @@
 
 .card-arrow-icon{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    align-items: center;
     padding: 5%;
 }
 
@@ -73,7 +74,19 @@
     color: white !important; 
   }
 
+/* new professional modal */
+.new-prof-modal-btn-group{
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+}
 
+.new-prof-delete-btn{
+    width: 80%;
+    margin-left: 10%;
+}
 
   /* ==================================================================== */
 /* responsiveness */

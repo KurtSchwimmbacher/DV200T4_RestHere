@@ -21,7 +21,7 @@ const ChatCard = ({ title, text, availability, handleShow, refreshProfessionals,
     <>
       <Card className="custom-card">
         <div className="card-arrow-icon">
-        {userIsAdmin && (
+        {userIsAdmin === 'admin' && (
             <Button
               variant="secondary"
               className="edit-button"

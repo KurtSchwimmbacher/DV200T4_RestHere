@@ -4,6 +4,8 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+import '../css/Resources.css';
+
 const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, professional }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -65,6 +67,17 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
     }
   };
 
+  const handleDelete = async () =>{
+    
+    try {
+      console.log(professional._id);  
+      const deleteResp = await axios.delete(`http://localhost:5000/api/professional/delete/${professional._id}`);
+      alert(deleteResp.data.message);
+    } catch (error) {
+      console.log( error)
+    }
+  };
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -97,9 +110,17 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
             <Form.Control type="text" value={availability} onChange={(e) => setAvailability(e.target.value)} />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Form.Group className='new-prof-modal-btn-group'>
+          <Button className='mb-3' variant="secondary" type="submit">
             {professional ? 'Save Changes' : 'Add Professional'}
           </Button>
+
+          {professional &&(
+            <Button className='new-prof-delete-btn' onClick={handleDelete}>
+              Delete
+            </Button>
+          )};
+          </Form.Group>
         </Form>
       </Modal.Body>
     </Modal>
