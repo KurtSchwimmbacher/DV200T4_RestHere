@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import AlertModal from './AlertModal';
 
 import '../css/Resources.css';
 
@@ -12,6 +13,10 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
   const [specialty, setSpecialty] = useState('');
   const [availability, setAvailability] = useState('');
   const [bio, setBio] = useState('');
+
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [alertModalMessage, setAlertModalMessage] = useState("Default");
+  const handleCloseModal = () => setShowAlertModal(false);
 
   const user = useSelector((state) => state.user);
   const userID = user.userID;
@@ -54,16 +59,24 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
           bio,
           availability
         });
+        
+        setAlertModalMessage("Professional Updated Successfully");
+        
+
       } else {
         // Create new professional
         await axios.post('http://localhost:5000/api/professional/create', professionalData);
+        setAlertModalMessage("Professional Created Successfully");
+        
       }
       
+      setShowAlertModal(true);
 
       handleClose();
     } catch (error) {
       console.error('Error submitting professional data:', error);
-      alert("Error Creating Professional");
+      setAlertModalMessage("Error Updating or Creating Professional");
+      setShowAlertModal(true);
     }
   };
 
@@ -72,58 +85,68 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
     try {
       console.log(professional._id);  
       const deleteResp = await axios.delete(`http://localhost:5000/api/professional/delete/${professional._id}`);
-      alert(deleteResp.data.message);
+      setAlertModalMessage("Professional deleted");
     } catch (error) {
       console.log( error)
     }
+    setShowAlertModal(true)
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{professional ? 'Edit Professional' : 'Add New Professional'}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formBasicName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-          </Form.Group>
+    <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{professional ? 'Edit Professional' : 'Add New Professional'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formBasicName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+            </Form.Group>
 
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </Form.Group>
 
-          <Form.Group controlId="formBasicSpecialty">
-            <Form.Label>Specialty</Form.Label>
-            <Form.Control type="text" value={specialty} onChange={(e) => setSpecialty(e.target.value)} required />
-          </Form.Group>
+            <Form.Group controlId="formBasicSpecialty">
+              <Form.Label>Specialty</Form.Label>
+              <Form.Control type="text" value={specialty} onChange={(e) => setSpecialty(e.target.value)} required />
+            </Form.Group>
 
-          <Form.Group controlId="formBasicBio">
-            <Form.Label>Bio</Form.Label>
-            <Form.Control as="textarea" value={bio} onChange={(e) => setBio(e.target.value)} />
-          </Form.Group>
+            <Form.Group controlId="formBasicBio">
+              <Form.Label>Bio</Form.Label>
+              <Form.Control as="textarea" value={bio} onChange={(e) => setBio(e.target.value)} />
+            </Form.Group>
 
-          <Form.Group controlId="formBasicAvailability">
-            <Form.Label>Availability</Form.Label>
-            <Form.Control type="text" value={availability} onChange={(e) => setAvailability(e.target.value)} />
-          </Form.Group>
+            <Form.Group controlId="formBasicAvailability">
+              <Form.Label>Availability</Form.Label>
+              <Form.Control type="text" value={availability} onChange={(e) => setAvailability(e.target.value)} />
+            </Form.Group>
 
-          <Form.Group className='new-prof-modal-btn-group'>
-          <Button className='mb-3' variant="secondary" type="submit">
-            {professional ? 'Save Changes' : 'Add Professional'}
-          </Button>
-
-          {professional &&(
-            <Button className='new-prof-delete-btn' onClick={handleDelete}>
-              Delete
+            <Form.Group className='new-prof-modal-btn-group'>
+            <Button className='mb-3' variant="secondary" type="submit">
+              {professional ? 'Save Changes' : 'Add Professional'}
             </Button>
-          )};
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-    </Modal>
+
+            {professional &&(
+              <Button className='new-prof-delete-btn' onClick={handleDelete}>
+                Delete
+              </Button>
+            )};
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
+      <AlertModal 
+        show={showAlertModal} 
+        handleClose={handleCloseModal} 
+        modalMessage={alertModalMessage}
+      />
+
+    </>
   );
 };
 
