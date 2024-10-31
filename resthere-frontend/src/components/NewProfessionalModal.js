@@ -47,11 +47,11 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
       availability,
       user: userID
     };
-
+  
     try {
       if (professional) {
         // Edit existing professional
-        console.log(professional._id)
+        
         await axios.patch(`http://localhost:5000/api/professional/update/${professional._id}`, {
           name, 
           email, 
@@ -59,27 +59,22 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
           bio,
           availability
         });
-        
         setAlertModalMessage("Professional Updated Successfully");
-        
-
       } else {
         // Create new professional
         await axios.post('http://localhost:5000/api/professional/create', professionalData);
         setAlertModalMessage("Professional Created Successfully");
-        
       }
-      
-      setShowAlertModal(true);
-
-      handleClose();
+  
+      setShowAlertModal(true); 
+      handleClose(); 
     } catch (error) {
       console.error('Error submitting professional data:', error);
       setAlertModalMessage("Error Updating or Creating Professional");
       setShowAlertModal(true);
     }
   };
-
+  
   const handleDelete = async () =>{
     
     try {
@@ -89,6 +84,7 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
     } catch (error) {
       console.log( error)
     }
+    handleClose();
     setShowAlertModal(true)
   };
 
