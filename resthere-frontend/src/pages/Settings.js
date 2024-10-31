@@ -24,7 +24,9 @@ const Settings = () => {
   const [selectedPost, setSelectedPost] = useState({ title: '', content: '', ID: '', tags: [] });
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [resources, setResources] = useState([]);
-  const [selectedResource, setSelectedResource] = useState(null); // State to store selected resource for editing
+  const [selectedResource, setSelectedResource] = useState(null); 
+
+  
 
   const [refreshPostsFunc, setRefreshPostsFunc] = useState(null);
 

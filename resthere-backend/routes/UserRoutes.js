@@ -136,10 +136,10 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Profile picture upload route
-router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req, res) => {
-  const { userId } = req.body;
-  
+// Profile picture update route
+router.patch('/uploadProfilePicture/:userId', upload.single('profilePicture'), async (req, res) => {
+  const { userId } = req.params;
+
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
   }
@@ -147,7 +147,7 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
   try {
     const imageUrl = `/uploads/profile-pictures/${req.file.filename}`;
 
-    // update user's profile picture
+    // Update user's profile picture
     const user = await User.findByIdAndUpdate(
       userId,
       { profilePicture: imageUrl },
@@ -158,13 +158,12 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.status(200).json({ message: 'Profile picture uploaded successfully', profilePicture: user.profilePicture });
+    res.status(200).json({ message: 'Profile picture updated successfully', profilePicture: user.profilePicture });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 });
-
 
 
 

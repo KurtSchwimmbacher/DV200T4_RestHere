@@ -17,16 +17,19 @@ const ProfileImageUploadModal = ({ show, handleClose, user }) => {
     formData.append('profilePicture', imageFile);
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/users/uploadProfilePicture/${user.userID}`, formData, {
+      const response = await axios.patch(`http://localhost:5000/api/users/uploadProfilePicture/${user.userID}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(response.data);
+      console.log(response.data.profilePicture);  
+      
+      alert(response.data.message)
       handleClose();
       
     } catch (error) {
-      console.error('Error uploading profile picture:', error);
+        
+        console.error('Error uploading profile picture:', error);
     }
   };
 
@@ -40,6 +43,9 @@ const ProfileImageUploadModal = ({ show, handleClose, user }) => {
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Select a new profile picture</Form.Label>
             <Form.Control type="file" onChange={handleFileChange} accept="image/*" required />
+            <Form.Text className="text-muted">
+                This change will only reflect after logging back in
+            </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit">
             Upload
