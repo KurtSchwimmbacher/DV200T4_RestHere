@@ -41,6 +41,7 @@ const ChatContainer = () => {
               text={professional.specialty} 
               availability={professional.availability}
               handleShow={() => handleShow(professional)} 
+              professional={professional}
             />
           </Col>
         ))}
