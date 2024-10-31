@@ -1,9 +1,10 @@
 /* src/css/Home.css */
 .home-container {
     background-image: url('../assets/Home_Illustration.png');  
-    background-size: contain; 
+    background-size: cover; 
     background-position: center;  
-    height: 98.5vh;  
+    background-repeat: no-repeat;
+    height: 98.5vh !important;  
     width: 100vw !important;   
     display: flex;
     flex-direction: column;
@@ -118,5 +119,23 @@
 
 .feature-right{
   margin-left: 35%;
+}
+
+/* ==================================================================== */
+/* responsiveness */
+
+@media (max-width: 767.98px) {
+  .features-row-home-1, .features-row-home-2 {
+    flex-direction: column; /* Stacks features vertically on smaller screens */
+    margin-top: 20px;
+  }
+  .feature-left,
+  .feature-right {
+      margin: 0; /* Removes extra margins for better alignment on smaller screens */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px){
+
 }
 

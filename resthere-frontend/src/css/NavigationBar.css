@@ -76,3 +76,37 @@
     border-radius: 10px; /* Makes the caps rounded */
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
 }
+
+
+/* ============================================================== */
+/* responsiveness */
+
+/* Responsive styles */
+@media (max-width: 992px) { /* Medium and smaller screens */
+    .navbar-links {
+        flex-direction: column; /* Stack links vertically */
+        align-items: center;
+        width: 100%;
+    }
+
+    .login-signup-btn {
+        width: 100%;
+        margin-top: 10px;
+        justify-content: center;
+    }
+
+    .navbar-brand img {
+        max-height: 28px; /* Slightly smaller logo */
+    }
+}
+
+@media (max-width: 576px) { /* Extra small screens */
+    .navbar-links .nav-link {
+        font-size: 16px;
+        padding: 0.5rem; /* Smaller padding for more space */
+    }
+
+    .login-signup-btn {
+        width: 100%;
+    }
+}
