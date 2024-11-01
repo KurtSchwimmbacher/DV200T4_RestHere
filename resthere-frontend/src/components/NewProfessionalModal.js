@@ -16,7 +16,7 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
 
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [alertModalMessage, setAlertModalMessage] = useState("Default");
-  const handleCloseModal = () => setShowAlertModal(false);
+  const handleCloseAlertModal = () => setShowAlertModal(false);
 
   const user = useSelector((state) => state.user);
   const userID = user.userID;
@@ -138,7 +138,7 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
 
       <AlertModal 
         show={showAlertModal} 
-        handleClose={handleCloseModal} 
+        handleClose={handleCloseAlertModal} 
         modalMessage={alertModalMessage}
       />
 

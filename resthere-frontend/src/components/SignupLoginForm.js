@@ -3,6 +3,7 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import AlertModal from './AlertModal';
 
 import '../css/SignupLoginForm.css';
 
@@ -12,6 +13,14 @@ const SignupLoginForm = () => {
   // Determine initial mode based on query
   const initialMode = queryParams.get('mode') === 'signup' ? false : true;
   
+  // state to show password
+  const [showPassword, setShowPassword] = useState(false);
+
+  // for alert modal
+  const [modalMessage, setModalMessage] = useState("");
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const handleCloseAlertModal = () => setShowAlertModal(false);
+
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(true);
 
@@ -47,7 +56,8 @@ const SignupLoginForm = () => {
         });
 
         console.log(response.data);
-        alert(response.data.message);
+        setModalMessage("Logged in Successfully");
+        setShowAlertModal(true)
         
         dispatch({
           type: 'LOGIN',
@@ -64,7 +74,8 @@ const SignupLoginForm = () => {
         localStorage.setItem('token', response.data.token);
       } else {
         if (formData.password !== formData.confirmPassword) {
-          alert("Passwords do not match!");
+          setModalMessage("Passwords do not mach");
+          setShowAlertModal(true);
           return;
         }
 
@@ -75,7 +86,9 @@ const SignupLoginForm = () => {
           confirmPassword: formData.confirmPassword,
         });
 
-        alert(response.data.msg);
+        setModalMessage("Account Created Successfully");
+        setShowAlertModal(true);
+
         setFormData({
           email: '',
           password: '',
@@ -85,7 +98,10 @@ const SignupLoginForm = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      alert(error.response?.data.msg || "An error occurred. Please try again.");
+      
+      setModalMessage(error.response?.data.msg || "An error occurred. Please try again.");
+      setShowAlertModal(true);
+      
       setFormData({
         email: '',
         password: '',
@@ -96,6 +112,10 @@ const SignupLoginForm = () => {
       setLoading(false);
     }
   };
+
+  const toggleShowPassword = () =>{
+    setShowPassword(!showPassword);
+  }
 
   return (
     <Container>
@@ -128,10 +148,12 @@ const SignupLoginForm = () => {
                   required 
                 />
               </Form.Group>
+
+              {/* add show password */}
               <Form.Group className='mt-3 mb-3 form-field' controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control 
-                  type="password" 
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Password" 
                   value={formData.password}
@@ -143,7 +165,7 @@ const SignupLoginForm = () => {
                 <Form.Group className='mt-3 mb-3 form-field' controlId="formBasicConfirmPassword">
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control 
-                    type="password" 
+                    type={showPassword ? "text" : "password"}
                     name="confirmPassword"
                     placeholder="Confirm Password" 
                     value={formData.confirmPassword}
@@ -152,6 +174,13 @@ const SignupLoginForm = () => {
                   />
                 </Form.Group>
               )}
+                <Form.Check 
+                  type="checkbox"
+                  label="Show Password"
+                  checked={showPassword}
+                  onChange={toggleShowPassword}
+                  className="mt-2"
+                />
               <Button className='submit-form-btn' variant="success" type="submit" disabled={loading}>
                 {loading ? (isLogin ? 'Logging in...' : 'Signing up...') : (isLogin ? 'Login' : 'Sign Up')}
               </Button>
@@ -165,6 +194,13 @@ const SignupLoginForm = () => {
           </div>
         </Col>
       </Row>
+
+      <AlertModal
+        show={showAlertModal}
+        handleClose={handleCloseAlertModal}
+        modalMessage={modalMessage}
+      />
+
     </Container>
   );
 };
