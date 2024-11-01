@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 const Professional = require('../models/Professional');
 
+// get single professional by ID
+router.get('/singleProf/:id', async (req,res) =>{
+    const { id } = req.params;
+
+    try {
+        const professional = await Professional.findById(id);
+        res.status(200).json(professional);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch professional' });
+    }
+});
+
 // Route to get all professionals
 router.get('/', async (req, res) => {
     try {

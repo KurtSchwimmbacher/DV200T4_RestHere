@@ -40,7 +40,7 @@ const ChatMessageOffCanvas = ({ show, handleClose }) => {
                         <ChatMessageCard 
                             key={index} 
                             professional={chatRoom.recipient === user.userID ? chatRoom.sender : chatRoom.recipient}
-                            latestMessage={chatRoom.latestMessage}
+                            latestMessage={chatRoom.message}
                             onClick={() => handleChatRoomClick(chatRoom)}
                         />
                     ))
