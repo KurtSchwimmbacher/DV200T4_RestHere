@@ -3,8 +3,21 @@ import Card from 'react-bootstrap/Card';
 import { ArrowUpRight } from 'react-bootstrap-icons';
 import '../css/Resources.css';
 import { Nav } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-const ResourceCard = ({ title, text, tags = [], onEditClick }) => {
+const ResourceCard = ({ resourceID, title, text, tags = [], onEditClick, isProfilePage }) => {
+
+  const navigate = useNavigate();
+  
+  const handleArrowClick = () =>{
+    if(isProfilePage){
+      onEditClick();
+    }
+    else{
+      navigate(`/resources/${resourceID}`);
+    }
+  }
+
   return (
     <Card className="custom-card mt-3">
       
@@ -19,7 +32,7 @@ const ResourceCard = ({ title, text, tags = [], onEditClick }) => {
           ))}
         </Nav>
 
-        <ArrowUpRight  onClick={onEditClick} />
+        <ArrowUpRight  onClick={handleArrowClick} />
       </div>
       <Card.Body className='resource-card-body'>
         <Card.Title>{title}</Card.Title>

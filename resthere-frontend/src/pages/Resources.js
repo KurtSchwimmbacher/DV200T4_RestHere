@@ -106,7 +106,7 @@ const Resources = () => {
           {filteredResources.length > 0 ? (
             filteredResources.map((resource) => (
               <Col lg={4} md={6} sm={12} className='mb-3' key={resource._id}> 
-                <ResourceCard title={resource.title} text={resource.content} tags={resource.tags} />
+                <ResourceCard resourceID={resource._id} title={resource.title} text={resource.content} tags={resource.tags} />
               </Col>
             ))
           ) : (

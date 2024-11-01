@@ -25,7 +25,7 @@ function App() {
         <Route path="/forum" element={<Forum />} />
         <Route path="/settings-profile" element={<SettingsProfile />} />
         <Route path="/admin-panel" element={<AdminPanel />} />
-        <Route path="/posts/:postId" element={<SinglePost />} />
+        <Route path="/resource/:resourceID" element={<SinglePost />} />
       </Routes>
     </Router>
   );

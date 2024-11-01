@@ -14,6 +14,28 @@ router.get('/', async (req, res) => {
   });
   
 
+  // get resources by resourceID
+router.get('/getSingle/:id', async (req,res) => {
+    const { id } = req.params;
+
+    try {
+        const singleResource = await Resources.findById(id);
+
+        if (!singleResource || singleResource.length === 0){
+            return res.status(404).json({ message: 'No resources found with this ID' });
+        }
+
+
+        // Return the found post
+        res.status(200).json(singleResource); 
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+});
+  
+
   // update a resource
 router.patch('/update/:id', async (req, res) => {
     const updates = Object.keys(req.body);
