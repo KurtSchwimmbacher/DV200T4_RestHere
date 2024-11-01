@@ -20,7 +20,7 @@ const PostContainer = ({ handleShow }) => {
     // function to fetch all posts by user
     const fetchUserPosts = async (userId) => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/posts/user/${userId}`);
+            const response = await axios.get(`/api/posts/user/${userId}`);
             // store response data in useState
             setUserPosts(response.data);
         } catch (error) {

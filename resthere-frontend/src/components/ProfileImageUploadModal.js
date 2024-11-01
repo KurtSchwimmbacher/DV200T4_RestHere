@@ -26,7 +26,7 @@ const ProfileImageUploadModal = ({ show, handleClose, user }) => {
     formData.append('profilePicture', imageFile);
 
     try {
-      const response = await axios.patch(`http://localhost:5000/api/users/uploadProfilePicture/${user.userID}`, formData, {
+      const response = await axios.patch(`/api/users/uploadProfilePicture/${user.userID}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

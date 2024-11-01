@@ -50,7 +50,7 @@ const SignupLoginForm = () => {
     setLoading(true);
     try {
       if (isLogin) {
-        const response = await axios.post('http://localhost:5000/api/users/login', {
+        const response = await axios.post('/api/users/login', {
           email: formData.email,
           password: formData.password,
         });
@@ -79,7 +79,7 @@ const SignupLoginForm = () => {
           return;
         }
 
-        const response = await axios.post('http://localhost:5000/api/users/signup', {
+        const response = await axios.post('/api/users/signup', {
           username: formData.username,
           email: formData.email,
           password: formData.password,

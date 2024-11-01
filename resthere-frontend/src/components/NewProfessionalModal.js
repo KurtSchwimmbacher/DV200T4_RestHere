@@ -55,7 +55,7 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
       if (professional) {
         // Edit existing professional
         
-        await axios.patch(`http://localhost:5000/api/professional/update/${professional._id}`, {
+        await axios.patch(`/api/professional/update/${professional._id}`, {
           name, 
           email, 
           specialty,
@@ -65,7 +65,7 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
         setAlertModalMessage("Professional Updated Successfully");
       } else {
         // Create new professional
-        await axios.post('http://localhost:5000/api/professional/create', professionalData);
+        await axios.post('/api/professional/create', professionalData);
         setAlertModalMessage("Professional Created Successfully");
       }
   
@@ -82,7 +82,7 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
     
     try {
       console.log(professional._id);  
-      const deleteResp = await axios.delete(`http://localhost:5000/api/professional/delete/${professional._id}`);
+      const deleteResp = await axios.delete(`/api/professional/delete/${professional._id}`);
       setAlertModalMessage("Professional deleted");
     } catch (error) {
       console.log( error)

@@ -21,7 +21,7 @@ const ChatContainer = () => {
   useEffect(() => {
     const fetchProfessionals = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/professional/');
+        const response = await axios.get('/api/professional/');
         setProfessionals(response.data);
       } catch (error) {
         console.error('Error fetching professionals:', error);

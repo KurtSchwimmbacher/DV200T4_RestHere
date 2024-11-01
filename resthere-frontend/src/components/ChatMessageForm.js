@@ -29,7 +29,7 @@ const ChatMessageForm = ({ professional }) => {
 
         try {
             
-            const response = await axios.post('http://localhost:5000/api/chat/send', {
+            const response = await axios.post('/api/chat/send', {
                 sender: user.userID, 
                 recipient: professional._id, 
                 message: message,
@@ -51,7 +51,7 @@ const ChatMessageForm = ({ professional }) => {
 
     const fetchMessages = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/chat/${user.userID}/${professional._id}`);
+            const response = await axios.get(`/api/chat/${user.userID}/${professional._id}`);
             setMessages(response.data); 
         } catch (error) {
             console.error('Error fetching messages:', error);

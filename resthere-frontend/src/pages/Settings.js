@@ -39,7 +39,7 @@ const Settings = () => {
     if (user.isAdmin === 'admin') {
       const fetchResources = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/api/resource/');
+          const response = await axios.get('/api/resource/');
           setResources(response.data);
         } catch (error) {
           console.error('Error fetching resources:', error);
@@ -90,7 +90,7 @@ const Settings = () => {
           <Col className='text-center'>
           {/* image to display users profile picture */}
             <img
-              src={`http://localhost:5000${user.profilePicture}`}
+              src={`${user.profilePicture}`}
               alt={`${user.username}'s Profile`}
               className='profile-picture'
               onClick={handleUploadModalOpen}

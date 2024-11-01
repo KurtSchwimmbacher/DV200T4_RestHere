@@ -13,7 +13,7 @@ const ChatMessageOffCanvas = ({ show, handleClose }) => {
     useEffect(() => {
         const fetchChatRooms = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/chat/chatrooms/${user.userID}`);
+                const response = await axios.get(`/api/chat/chatrooms/${user.userID}`);
                 console.log(response.data);
                 setChatRooms(response.data);
             } catch (error) {

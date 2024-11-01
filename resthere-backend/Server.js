@@ -53,6 +53,17 @@ app.use('/api/professional',professionalRoutes);
 
 app.use('/api/chat',chatRoutes);
 
+
+// Serve static files (React frontend)
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Catch-all for React frontend routing
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

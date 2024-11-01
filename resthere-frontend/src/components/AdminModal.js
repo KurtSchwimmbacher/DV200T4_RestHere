@@ -45,7 +45,7 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
         if(resourceData){
             try {
                 console.log(resourceData._id)
-                const response = await axios.patch(`http://localhost:5000/api/resource/update/${resourceData._id}`,{
+                const response = await axios.patch(`/api/resource/update/${resourceData._id}`,{
                     title,
                     content,
                     tags,
