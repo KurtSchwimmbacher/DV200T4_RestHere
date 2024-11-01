@@ -9,15 +9,20 @@ const ChatOffCanvas = ({ show, handleClose, professional }) => {
     setIsMessaging(true); 
   };
 
+  const handleClosingOffCanvas = () =>{
+    setIsMessaging(false);
+    handleClose();
+  }
+
   if (!professional) return null;
 
   return (
-    <Offcanvas show={show} onHide={handleClose} placement="end" className="chat-off-canvas">
+    <Offcanvas show={show} onHide={handleClosingOffCanvas} placement="end" className="chat-off-canvas">
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Chat with {professional.name}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        {isMessaging ? ( // Conditional rendering
+        {isMessaging ? (
           <ChatMessageForm professional={professional} />
         ) : (
           <>

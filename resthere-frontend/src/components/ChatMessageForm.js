@@ -4,12 +4,20 @@ import { TrashFill, SendFill } from 'react-bootstrap-icons';
 import axios from 'axios'; 
 import { useSelector } from "react-redux";
 
+import AlertModal from "./AlertModal";
+
 import '../css/Chat.css';
 
 const ChatMessageForm = ({ professional }) => { 
     const [message, setMessage] = useState(''); 
     const [messages, setMessages] = useState([]);
     const user = useSelector((state) => state.user);
+
+    const [alertModalMessage, setAlertModalMessage] = useState("");
+    const [showAlertModal, setShowAlertModal] = useState(false);
+    const handleCloseAlertModal = () =>{
+        setShowAlertModal(false);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
@@ -28,14 +36,16 @@ const ChatMessageForm = ({ professional }) => {
             });
 
             console.log(response.data.message);
-            alert(response.data.message);
+            setAlertModalMessage(response.data.message);
+            setShowAlertModal(true);
 
             // Clear the message input after successful submission
             setMessage('');
             fetchMessages();
         } catch (error) {
             console.error('Error sending message:', error);
-            alert("Error sending chat: ", error)
+            setAlertModalMessage("Error sending chat: ", error)
+            setShowAlertModal(true);
         }
     };
 
@@ -98,6 +108,13 @@ const ChatMessageForm = ({ professional }) => {
                     </Form>
                 </Col>
             </Row>
+
+            <AlertModal
+                show={showAlertModal}
+                modalMessage={alertModalMessage}
+                handleClose={handleCloseAlertModal}
+            />
+
         </Container>
     );
 };

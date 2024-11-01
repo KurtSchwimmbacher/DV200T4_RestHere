@@ -51,7 +51,7 @@ app.use('/api/resource',resourceRoutes);
 
 app.use('/api/professional',professionalRoutes);
 
-app.use('/api/chat' , chatRoutes);
+app.use('/api/chat',chatRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

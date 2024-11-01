@@ -4,35 +4,48 @@ const Chat = require('../models/Chat');
 
 const Professional = require('../models/Professional');
 
+
+router.get('/chatrooms/:userId', async (req, res) => {
+    const { userId } = req.params;
+    console.log("Fetching chat rooms for user:", userId);
+
+    try {
+        const chatrooms = await Chat.find({
+            $or: [
+                { sender: userId },
+                { recipient: userId }
+            ]
+        }).sort({ timestamp: -1 }); 
+
+        console.log("Chatrooms fetched:", chatrooms);
+        res.status(200).json(chatrooms);
+    } catch (err) {
+        console.error("Error in chatrooms route:", err.message);
+        res.status(500).json({ error: 'Failed to fetch chat rooms', details: err.message });
+    }
+});
+
+
 // Route to get all chats for a particular user with a professional
 router.get('/:userId/:professionalId', async (req, res) => {
     const { userId, professionalId } = req.params;
     try {
-        const chats = await Chat.find({ 
+        const chatsFirst = await Chat.find({ 
             sender: userId, 
             recipient: professionalId 
         }).sort({ timestamp: 1 });
+
+        const chatsOther = await Chat.find({
+            sender: professionalId,
+            recipient: userId
+        }).sort({ timestamp: 1 });
+
+        // Combine both arrays and sort by timestamp
+        const chats = [...chatsFirst, ...chatsOther].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        
         res.status(200).json(chats);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch chat messages' });
-    }
-});
-
-// Get all professionals the user has been messaging
-router.get('/professionals/:userId', async (req, res) => {
-    const { userId } = req.params;
-
-    try {
-        const chatSessions = await Chat.find({ sender: userId }).distinct('recipient');
-        console.log("Chat Sessions Found:", chatSessions); // Log to see what the chat query returns
-
-        const professionals = await Professional.find({ _id: { $in: chatSessions } });
-        console.log("Professionals Found:", professionals); // Log to see if professionals are being fetched
-
-        res.status(200).json(professionals);
-    } catch (error) {
-        console.error('Error fetching professionals:', error); // Detailed error logging
-        res.status(500).json({ error: 'Error fetching professionals' });
     }
 });
 

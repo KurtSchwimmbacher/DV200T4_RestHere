@@ -6,25 +6,25 @@ import ChatMessageForm from './ChatMessageForm';
 import { useSelector } from "react-redux";
 
 const ChatMessageOffCanvas = ({ show, handleClose }) => {
-    const [professionals, setProfessionals] = useState([]);
-    const [selectedProfessional, setSelectedProfessional] = useState(null);
+    const [chatRooms, setChatRooms] = useState([]);
+    const [selectedChatRoom, setSelectedChatRoom] = useState(null);
     const user = useSelector((state) => state.user);
 
     useEffect(() => {
-        const fetchProfessionals = async () => {
+        const fetchChatRooms = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/chat/professionals/${user.userID}`);
-                console.log(response);
-                setProfessionals(response.data);
+                const response = await axios.get(`http://localhost:5000/api/chat/chatrooms/${user.userID}`);
+                console.log(response.data);
+                setChatRooms(response.data);
             } catch (error) {
-                console.error("Error fetching professionals:", error);
+                console.error("Error fetching chatrooms:", error);
             }
         };
-        fetchProfessionals();
+        fetchChatRooms();
     }, [user.userID]);
 
-    const handleCardClick = (professional) => {
-        setSelectedProfessional(professional);
+    const handleChatRoomClick = (chatRoom) => {
+        setSelectedChatRoom(chatRoom);
     };
 
     return (
@@ -33,14 +33,15 @@ const ChatMessageOffCanvas = ({ show, handleClose }) => {
                 <Offcanvas.Title>Chats</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                {selectedProfessional ? (
-                    <ChatMessageForm professional={selectedProfessional} />
+                {selectedChatRoom ? (
+                    <ChatMessageForm professional={selectedChatRoom.recipient === user.userID ? selectedChatRoom.sender : selectedChatRoom.recipient} />
                 ) : (
-                    professionals.map((professional) => (
+                    chatRooms.map((chatRoom, index) => (
                         <ChatMessageCard 
-                            key={professional._id} 
-                            professional={professional} 
-                            onClick={() => handleCardClick(professional)}
+                            key={index} 
+                            professional={chatRoom.recipient === user.userID ? chatRoom.sender : chatRoom.recipient}
+                            latestMessage={chatRoom.latestMessage}
+                            onClick={() => handleChatRoomClick(chatRoom)}
                         />
                     ))
                 )}
