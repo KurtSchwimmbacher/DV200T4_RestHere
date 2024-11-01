@@ -5,12 +5,23 @@ import { TrashFill, SendFill } from 'react-bootstrap-icons';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+import AlertModal from './AlertModal';
+
 import '../css/Posts.css';
 
 function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, postData, refreshPosts }) {
     const user = useSelector((state) => state.user);
     const userID = user.userID;
 
+    // for alert modal
+    const [alertModalMessage, setAlertModalMessage] = useState("");
+    const [showAlertModal, setShowAlertModal] = useState(false);
+    const handleCloseAlertModal = () => {
+        setShowAlertModal(false);
+        handleClose();
+    };
+
+    // for forms
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
@@ -18,9 +29,6 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
     const [ID, setID] = useState('');
 
     useEffect(() => {
-        console.log(entryData)
-        console.log(postData)
-
         if (entryData) {
             setTitle(entryData.title || '');
             setContent(entryData.content || '');
@@ -38,7 +46,7 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        // Determine if we are dealing with a post or a journal entry
+        // Determine if we are dealing with a posting or editing a journal entry
         const isPost = type === 'post';
         const isEdit = Boolean(ID);
     
@@ -46,10 +54,13 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
             title,
             content,
             ...(!isEdit &&  {user: userID}),
-            ...(isPost && { tags }), // Only include tags if it's a post
-            ...(!isPost && { date }) // Only include date if it's a journal entry
+            // only include tags for posts
+            ...(isPost && { tags }), 
+            // only include dates for journal entries
+            ...(!isPost && { date }) 
         };
     
+        // change backend route to reflect appropriate route
         const url = isEdit
             ? `http://localhost:5000/api/${isPost ? 'posts' : 'journal'}/update/${ID}`
             : `http://localhost:5000/api/${isPost ? 'posts' : 'journal'}/create`;
@@ -58,10 +69,11 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
     
         try {
             const response = await axios[method](url, payload);
-            console.log(response.data);
-            alert(response.data.message);
+            
+            setAlertModalMessage(response.data.message);
+            setShowAlertModal(true);
     
-            handleClose();
+            // handleClose();
     
             // Refresh the list if the callback is provided
             if (refreshEntries) {
@@ -69,7 +81,8 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
             }
         } catch (error) {
             console.error(`Error ${isEdit ? 'updating' : 'creating'} ${type}:`, error);
-            alert(`An error occurred while ${isEdit ? 'updating' : 'creating'} the ${type}. Please try again.`);
+            setAlertModalMessage(`An error occurred while ${isEdit ? 'updating' : 'creating'} the ${type}. Please try again.`);
+            setShowAlertModal(true);
         }
     };
     
@@ -79,12 +92,14 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
         if (ID) {
             try {
                 const response = await axios.delete(`http://localhost:5000/api/${type === 'journal' ? 'journal' : 'posts'}/delete/${ID}`);
-                alert(response.data.message);
-                handleClose();
+                setAlertModalMessage(response.data.message);
+                setShowAlertModal(true);
+                // handleClose();
                 if (refreshEntries) refreshEntries();
             } catch (error) {
                 console.error(`Error deleting ${type}:`, error);
-                alert(`An error occurred while deleting the ${type}. Please try again.`);
+                setAlertModalMessage(`An error occurred while deleting the ${type}. Please try again.`);
+                setShowAlertModal(true);
             }
         }
     };
@@ -173,6 +188,15 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
                     
                 </Form>
             </Offcanvas.Body>
+
+            {/* alert modal */}
+            <AlertModal 
+                show={showAlertModal}
+                handleClose={handleCloseAlertModal}
+                modalMessage={alertModalMessage}
+            />
+
+
         </Offcanvas>
     );
 }

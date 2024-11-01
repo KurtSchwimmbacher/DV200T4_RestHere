@@ -32,7 +32,7 @@ export function Calender({ onEventClick }) {
   }, [user.userID]);
 
   const handleEventClick = (eventInfo) => {
-    onEventClick(eventInfo.event.id); // Pass event ID when clicked
+    onEventClick(eventInfo.event.id); 
   };
 
   return (
@@ -42,7 +42,7 @@ export function Calender({ onEventClick }) {
         initialView='dayGridMonth'
         weekends={true}
         events={events}
-        eventClick={handleEventClick} // Add event click handler
+        eventClick={handleEventClick} 
       />
     </div>
   );
