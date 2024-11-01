@@ -16,7 +16,10 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
 
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [alertModalMessage, setAlertModalMessage] = useState("Default");
-  const handleCloseAlertModal = () => setShowAlertModal(false);
+  const handleCloseAlertModal = () => {
+    setShowAlertModal(false);
+    handleClose();
+  };
 
   const user = useSelector((state) => state.user);
   const userID = user.userID;
@@ -67,7 +70,7 @@ const NewProfessionalModal = ({ show, handleClose, refreshProfessionals, profess
       }
   
       setShowAlertModal(true); 
-      handleClose(); 
+      // handleClose(); 
     } catch (error) {
       console.error('Error submitting professional data:', error);
       setAlertModalMessage("Error Updating or Creating Professional");

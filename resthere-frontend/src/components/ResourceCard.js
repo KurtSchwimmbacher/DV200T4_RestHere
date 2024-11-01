@@ -6,7 +6,7 @@ import { Nav } from 'react-bootstrap';
 
 const ResourceCard = ({ title, text, tags = [], onEditClick }) => {
   return (
-    <Card className="custom-card">
+    <Card className="custom-card mt-3">
       
 
       <div className="post-card-top">

@@ -4,8 +4,17 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
+import AlertModal from './AlertModal';
+
 const ProfileImageUploadModal = ({ show, handleClose, user }) => {
   const [imageFile, setImageFile] = useState(null);
+
+  const [alertModalMessage, setAlertModalMessage] = useState("");
+  const [showAlertModal,setShowAlertModal] = useState(false);
+  const handleCloseAlertModal = () =>{
+    setShowAlertModal(false);
+    handleClose();
+  };
 
   const handleFileChange = (event) => {
     setImageFile(event.target.files[0]);
@@ -24,12 +33,12 @@ const ProfileImageUploadModal = ({ show, handleClose, user }) => {
       });
       console.log(response.data.profilePicture);  
       
-      alert(response.data.message)
-      handleClose();
+      setAlertModalMessage(response.data.message)
+      setShowAlertModal(true);
       
     } catch (error) {
-        
-        console.error('Error uploading profile picture:', error);
+      setAlertModalMessage("Unable to upload picture. Try again soon.")
+      setShowAlertModal(true);
     }
   };
 

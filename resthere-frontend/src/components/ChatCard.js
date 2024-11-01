@@ -19,7 +19,7 @@ const ChatCard = ({ title, text, availability, handleShow, refreshProfessionals,
 
   return (
     <>
-      <Card className="custom-card">
+      <Card className="custom-card mt-3">
         <div className="card-arrow-icon">
         {userIsAdmin === 'admin' && (
             <Button

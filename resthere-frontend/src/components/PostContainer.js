@@ -70,7 +70,8 @@ const PostContainer = ({ handleShow }) => {
                     />
                 </Col>
             ))
-        // rest of conditional statement
+        
+            
         ):(
             // message displayed if no posts exist
             <Col>

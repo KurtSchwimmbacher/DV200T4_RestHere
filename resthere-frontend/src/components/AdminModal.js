@@ -4,10 +4,19 @@ import { TrashFill } from 'react-bootstrap-icons';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+import AlertModal from './AlertModal';
+
 const AdminModal = ({ show, handleClose ,resourceData }) => {
 
     const user = useSelector((state) => state.user);
     const userID = user.userID;
+
+    const [alertModalMessage, setAlertModalMessage] = useState("");
+    const [showAlertModal, setShowAlertModal] = useState(false);
+    const handleCloseAlertModal = () =>{
+        setShowAlertModal(false);
+        handleClose();
+    }
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -42,13 +51,12 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
                     resourceUrl,
                 });
 
-                console.log(response.data);
-                alert(response.data.message);
-                handleClose();
+                setAlertModalMessage(response.data.message);
+                setShowAlertModal(true);
 
             } catch (error) {
-                console.error("Error creating resource:", error);
-                alert(error.response?.data.msg || "An error occurred. Please try again.");
+                setAlertModalMessage(error.response?.data.msg || "An error occurred. Please try again.");
+                setShowAlertModal(true);
             }
         }
         // if not editing
@@ -62,19 +70,18 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
                     resourceUrl,
                 });
     
-                console.log(response.data.message)
-                alert(response.data.message); // Success message from the backend
-    
+                setAlertModalMessage(response.data.message); // Success message from the backend
+                setShowAlertModal(true);
     
                 // Reset form after submission
                 setTitle('');
                 setContent('');
                 setTags([]);
                 setResourceUrl('');
-                handleClose();
+                
             } catch (error) {
-                console.error("Error creating resource:", error);
-                alert(error.response?.data.msg || "An error occurred. Please try again.");
+                setAlertModalMessage(error.response?.data.msg || "An error occurred. Please try again.");
+                setShowAlertModal(true);
             }
         }
         
@@ -84,12 +91,13 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
         if (resourceData._id) {
             try {
                 const response = await axios.delete(`http://localhost:5000/api/resource/delete/${resourceData._id}`);
-                alert(response.data.message);
-                handleClose();
+                setAlertModalMessage(response.data.message);
+                setShowAlertModal(true);
                 
             } catch (error) {
                 console.error(`Error deleting resource`, error);
-                alert(`An error occurred while deleting the resource. Please try again.`);
+                setAlertModalMessage(`An error occurred while deleting the resource. Please try again.`);
+                setShowAlertModal(true);
             }
         }
     };
@@ -168,8 +176,14 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
         </Form>
 
       </Modal.Body>
-      <Modal.Footer>
-      </Modal.Footer>
+
+        {/* alert modal */}
+        <AlertModal
+            show={showAlertModal}
+            handleClose={handleCloseAlertModal}
+            modalMessage={alertModalMessage}
+        />
+
     </Modal>
   );
 };
