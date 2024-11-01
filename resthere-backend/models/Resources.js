@@ -15,8 +15,12 @@ const ResourceSchema = new mongoose.Schema({
         required: true,
     },
     tags: {
-        type: [String], // Array of strings for tags
-        default: [],    // Default to an empty array if no tags are provided
+        type: [String],
+        default: [],    
+    },
+    resourceURL: {
+        type: String,
+        required: true,
     },
     createdAt: {
         type: Date,

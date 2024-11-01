@@ -21,13 +21,14 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [tags, setTags] = useState([]);
-    const [resourceUrl, setResourceUrl] = useState('');
+    const [resourceURL, setResourceURL] = useState('');
 
     // Set initial values when the modal opens
     useEffect(() => {
         if (resourceData) {
             setTitle(resourceData.title || '');
             setContent(resourceData.content || '');
+            setResourceURL(resourceData.resourceURL || '');
         }
     }, [resourceData]);
 
@@ -48,15 +49,16 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
                     title,
                     content,
                     tags,
-                    resourceUrl,
+                    resourceURL,
                 });
-
+                
                 setAlertModalMessage(response.data.message);
                 setShowAlertModal(true);
 
             } catch (error) {
                 setAlertModalMessage(error.response?.data.msg || "An error occurred. Please try again.");
                 setShowAlertModal(true);
+                console.log(error)
             }
         }
         // if not editing
@@ -67,17 +69,17 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
                     content,
                     user: userID, 
                     tags,
-                    resourceUrl,
+                    resourceURL,
                 });
     
-                setAlertModalMessage(response.data.message); // Success message from the backend
+                setAlertModalMessage(response.data.message); 
                 setShowAlertModal(true);
     
                 // Reset form after submission
                 setTitle('');
                 setContent('');
                 setTags([]);
-                setResourceUrl('');
+                setResourceURL('');
                 
             } catch (error) {
                 setAlertModalMessage(error.response?.data.msg || "An error occurred. Please try again.");
@@ -166,8 +168,8 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
             <Form.Control 
                 type="text" 
                 placeholder="Resource URL" 
-                value={resourceUrl}
-                onChange={(e)=> setResourceUrl(e.target.value)}
+                value={resourceURL}
+                onChange={(e)=> setResourceURL(e.target.value)}
                 />
             </Form.Group>
             <Button variant="primary" className='submit-form-btn' type="submit">

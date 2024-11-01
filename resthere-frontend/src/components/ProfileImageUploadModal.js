@@ -61,6 +61,14 @@ const ProfileImageUploadModal = ({ show, handleClose, user }) => {
           </Button>
         </Form>
       </Modal.Body>
+
+          {/* alert modal */}
+          <AlertModal
+            show={showAlertModal}
+            handleClose={handleCloseAlertModal}
+            modalMessage={alertModalMessage}
+          />
+
     </Modal>
   );
 };

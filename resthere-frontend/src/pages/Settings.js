@@ -138,7 +138,8 @@ const Settings = () => {
                     title={resource.title}
                     text={resource.content}
                     tags={resource.tags}
-                    onEditClick={() => handleEditResource(resource)} // Handle edit click
+                    onEditClick={() => handleEditResource(resource)} 
+                    isProfilePage={true}
                   />
                 </Col>
               ))}

@@ -39,7 +39,7 @@ router.get('/getSingle/:id', async (req,res) => {
   // update a resource
 router.patch('/update/:id', async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['title', 'content','tags', 'resourceUrl'];
+    const allowedUpdates = ['title', 'content','tags', 'resourceURL'];
     const isValidOperation = updates.every(update => allowedUpdates.includes(update));
     
     // Check if the updates are valid
@@ -75,7 +75,7 @@ router.patch('/update/:id', async (req, res) => {
 
 // new Resource route
 router.post('/create', async (req, res) => {
-    const { title, content, user, tags } = req.body;
+    const { title, content, user, tags, resourceURL } = req.body;
 
     // create post
     try {
@@ -84,6 +84,7 @@ router.post('/create', async (req, res) => {
             content,
             user,
             tags,
+            resourceURL
         });
 
         await newResource.save();

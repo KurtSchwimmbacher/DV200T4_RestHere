@@ -5,7 +5,7 @@ import '../css/Resources.css';
 import { Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const ResourceCard = ({ resourceID, title, text, tags = [], onEditClick, isProfilePage }) => {
+const ResourceCard = ({ resourceID, title, text, tags = [], onEditClick, isProfilePage, resourceURL }) => {
 
   const navigate = useNavigate();
   
@@ -13,8 +13,8 @@ const ResourceCard = ({ resourceID, title, text, tags = [], onEditClick, isProfi
     if(isProfilePage){
       onEditClick();
     }
-    else{
-      navigate(`/resources/${resourceID}`);
+    else if(!isProfilePage && resourceURL ){
+      window.open(resourceURL, '_blank');
     }
   }
 

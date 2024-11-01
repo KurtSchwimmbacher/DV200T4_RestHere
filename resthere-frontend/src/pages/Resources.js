@@ -14,7 +14,7 @@ import SortDropdown from '../components/SortDropdown';
 
 const Resources = () => {
   const [resources, setResources] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('All'); // Initialize active filter state
+  const [activeFilter, setActiveFilter] = useState('All'); 
   const [searchQuery, setSearchQuery] = useState('');
 
   const [sortOption, setSortOption] = useState('latest');
@@ -106,7 +106,7 @@ const Resources = () => {
           {filteredResources.length > 0 ? (
             filteredResources.map((resource) => (
               <Col lg={4} md={6} sm={12} className='mb-3' key={resource._id}> 
-                <ResourceCard resourceID={resource._id} title={resource.title} text={resource.content} tags={resource.tags} />
+                <ResourceCard resourceID={resource._id} title={resource.title} text={resource.content} tags={resource.tags} isProfilePage={false} resourceURL={resource.resourceURL}/>
               </Col>
             ))
           ) : (
