@@ -9,11 +9,13 @@ const journalRoutes = require('./routes/JournalRoutes');
 const resourceRoutes = require('./routes/ResourcesRoutes');
 const professionalRoutes = require('./routes/ProfessionalRoutes');
 const chatRoutes = require('./routes/ChatRoutes');
+const path = require('path');
+
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 // Use CORS middleware
 app.use(cors());
