@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
 
 const userRoutes = require('./routes/UserRoutes');
 const postRoutes = require('./routes/PostRoutes');
@@ -9,8 +10,6 @@ const journalRoutes = require('./routes/JournalRoutes');
 const resourceRoutes = require('./routes/ResourcesRoutes');
 const professionalRoutes = require('./routes/ProfessionalRoutes');
 const chatRoutes = require('./routes/ChatRoutes');
-const path = require('path');
-
 
 dotenv.config();
 
@@ -19,12 +18,7 @@ const PORT = process.env.PORT || 8080;
 
 // Use CORS middleware
 app.use(cors());
-
 app.use(express.json());
-
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
 
 // Serve static files from uploads folder
 app.use('/uploads', express.static('uploads'));
@@ -33,38 +27,23 @@ app.use('/uploads', express.static('uploads'));
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-  })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error: ', err));
-  
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error('MongoDB connection error: ', err));
 
-
-// use the user routes
+// Use the various routes
 app.use('/api/users', userRoutes);
-
-// use the Posts route
 app.use('/api/posts', postRoutes);
+app.use('/api/journal', journalRoutes);
+app.use('/api/resource', resourceRoutes);
+app.use('/api/professional', professionalRoutes);
+app.use('/api/chat', chatRoutes);
 
-// use the Journal route
-app.use('/api/journal',journalRoutes);
-
-// use the Resource route
-app.use('/api/resource',resourceRoutes);
-
-app.use('/api/professional',professionalRoutes);
-
-app.use('/api/chat',chatRoutes);
-
-
-// Serve static files (React frontend)
-app.use(express.static(path.join(__dirname, 'build')));
-
-// Catch-all for React frontend routing
+// Serve the frontend files for any route not caught by API routes
+app.use(express.static(path.resolve(__dirname, 'build')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

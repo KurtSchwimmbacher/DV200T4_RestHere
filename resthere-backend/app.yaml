@@ -1,2 +1,2 @@
 runtime: nodejs20
-entrypoint: npm start
+entrypoint: node Server.js
