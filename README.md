@@ -149,19 +149,19 @@ npm run start
 ## Mockups
 
 ### Home Page Mockup
-
+![Home Mockup](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/Mockups/Home_Mockup.png)
 
 ### Journal Page Mockup
-
+![Journal Mockup](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/Mockups/Journal_Mockup.png)
 
 ### Resources Page Mockup
-
+![Resource Mockup](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/Mockups/Resources_Mockup.png)
 
 ### Forum Page Mockup
-
+![Forum Mockup](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/Mockups/Forum_Mockup.png)
 
 ### Profile Page Mockup
-
+![Profile Mockup](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/Mockups/Account_Mockup.png)
 
 
 ## Demonstration
