@@ -98,29 +98,35 @@ npm run start
 
 
 ### Home Page
-
+![Home Page](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Home_Page.png)
 
 ### Login / Sign Up Page
-
+![Login Page](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Login_Page.png)
+![Sign Up Page](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/SignUp_Page.png)
 
 ### Account Page
+![Account Page](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Account_Page.png)
 
-
-### Post Offcanvas and Resource OffCanvas
-
+### Post Offcanvas and Resource Modal
+![Post OffCanvas](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Post_Offcanvas.png)
+![Resource Modal](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Resource_Modal.png)
 
 ### Journal Page / Journal OffCanvas
-
+![Journal Page](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Journal_Page.png)
+![Journal OffCanvas](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Journal_OffCanvas.png)
 
 ### Resource Page
-
+![Resource Page](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Resources_Page.png)
 
 ### Forum Page
-
+![Forum Page](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Forum_Page.png)
 
 ### Chat Page / Chat OffCanvas / Message OffCanvas / Manage Professional Modal
-
-
+![Chat Page](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Chat_Page.png)
+![Chat Offcanvas](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Chats_OffCanvas.png)
+![Message OffCanvas](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Message_OffCanvas.png)
+![Proffessional Offcanvas](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Professional_Offcanvas.png)
+![Professional Modal](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/UI_designs/Proffessional_Modal.png)
 
 
 ## Development Process
