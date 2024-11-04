@@ -24,7 +24,7 @@ const Resources = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/resource/');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/resource/`);
         setResources(response.data);
       } catch (error) {
         console.error("Error fetching resources:", error);

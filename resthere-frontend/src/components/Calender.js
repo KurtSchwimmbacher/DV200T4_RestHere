@@ -12,7 +12,7 @@ export function Calender({ onEventClick }) {
 
   const fetchUserEntries = async (userID) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/journal/entries/${userID}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/journal/entries/${userID}`);
       const formattedEvents = response.data.map(entry => ({
         id: entry._id, // Ensure the event has an ID to identify it
         title: entry.title,

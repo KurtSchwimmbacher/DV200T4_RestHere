@@ -26,7 +26,7 @@ const Journaling = () => {
 
   const handleEventClick = async (entryID) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/journal/entry/${entryID}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/journal/entry/${entryID}`);
       console.log('Fetched Entry:', response.data); 
       setSelectedEntry(response.data); 
       setShowOffCanvas(true);

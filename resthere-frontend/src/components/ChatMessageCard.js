@@ -10,7 +10,7 @@ function ChatMessageCard({ professional, onClick, latestMessage }) {
     useEffect(() => {
         const fetchRecipientName = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/professional/singleProf/${professional}`);
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/professional/singleProf/${professional}`);
                 setProfessionalDetails(response.data);
             } catch (error) {
                 console.log('Error fetching professional:', error);

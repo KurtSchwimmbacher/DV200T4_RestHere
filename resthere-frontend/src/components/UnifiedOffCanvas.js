@@ -62,8 +62,8 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
     
         // change backend route to reflect appropriate route
         const url = isEdit
-            ? `http://localhost:5000/api/${isPost ? 'posts' : 'journal'}/update/${ID}`
-            : `http://localhost:5000/api/${isPost ? 'posts' : 'journal'}/create`;
+            ? `${process.env.REACT_APP_API_URL}/api/${isPost ? 'posts' : 'journal'}/update/${ID}`
+            : `${process.env.REACT_APP_API_URL}/api/${isPost ? 'posts' : 'journal'}/create`;
     
         const method = isEdit ? 'patch' : 'post';
     
@@ -91,7 +91,7 @@ function UnifiedOffCanvas({ show, handleClose, type, entryData, refreshEntries, 
     const handleDelete = async () => {
         if (ID) {
             try {
-                const response = await axios.delete(`http://localhost:5000/api/${type === 'journal' ? 'journal' : 'posts'}/delete/${ID}`);
+                const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/${type === 'journal' ? 'journal' : 'posts'}/delete/${ID}`);
                 setAlertModalMessage(response.data.message);
                 setShowAlertModal(true);
                 // handleClose();

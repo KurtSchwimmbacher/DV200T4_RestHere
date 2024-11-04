@@ -23,7 +23,7 @@ const Forum = () => {
   // Function to fetch all posts
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/posts/'); 
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/posts/`); 
       setPosts(response.data);
       console.log(response.data);
     } catch (error) {

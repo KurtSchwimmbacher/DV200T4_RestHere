@@ -90,7 +90,7 @@ const Settings = () => {
           <Col className='text-center'>
           {/* image to display users profile picture */}
             <img
-              src={`http://localhost:5000${user.profilePicture}`}
+              src={`${process.env.REACT_APP_API_URL}${user.profilePicture}`}
               alt={`${user.username}'s Profile`}
               className='profile-picture'
               onClick={handleUploadModalOpen}
