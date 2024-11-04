@@ -10,7 +10,6 @@ const resourceRoutes = require('./routes/ResourcesRoutes');
 const professionalRoutes = require('./routes/ProfessionalRoutes');
 const chatRoutes = require('./routes/ChatRoutes');
 
-const path = require('path');
 
 
 dotenv.config();
@@ -56,9 +55,16 @@ app.use('/api/professional',professionalRoutes);
 
 app.use('/api/chat',chatRoutes);
 
-app.use(express.static(path.join(__dirname, '../resthere-frontend', 'build')));
+
+
+
+const path = require('path');
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, '../resthere-frontend/build')));
+
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../resthere-frontend', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../resthere-frontend/build', 'index.html'));
 });
 
 
