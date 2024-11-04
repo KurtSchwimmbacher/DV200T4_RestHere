@@ -1,15 +1,15 @@
 {
-  "name": "resthere-backend",
+  "name": "resthere",
   "version": "1.0.0",
-  "main": "Server.js",
+  "main": "resthere-backend/Server.js",
   "scripts": {
     "start": "node resthere-backend/Server.js",
     "heroku-postbuild": "cd resthere-frontend && npm install && npm run build"
   },
   "engines": {
-  "node": "20.x",
-  "npm": "10.x"
-},
+    "node": "20.x",
+    "npm": "10.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
