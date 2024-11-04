@@ -4,8 +4,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node Server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
+    "heroku-postbuild": "cd resthere-frontend && npm install && npm run build"
   },
+  "engines": {
+  "node": "20",
+  "npm": "10"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
