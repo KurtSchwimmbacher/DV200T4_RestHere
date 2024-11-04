@@ -4,6 +4,9 @@
 ### GCP Deployment Link
 https://resthere-440419.oa.r.appspot.com/
 
+### Heroku Deployment Link
+https://resthere-07d2650716cd.herokuapp.com/
+
 # About RestHere
 
 RestHere is a mental heatlh support platform created with the goals of providing users, who feel they need support, a safe space to share anonymously, reach out to professionals, journal, and find helpful resources.
