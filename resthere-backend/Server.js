@@ -9,7 +9,10 @@ const journalRoutes = require('./routes/JournalRoutes');
 const resourceRoutes = require('./routes/ResourcesRoutes');
 const professionalRoutes = require('./routes/ProfessionalRoutes');
 const chatRoutes = require('./routes/ChatRoutes');
+const path = require('path');
 
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, '../resthere-frontend/build')));
 
 
 dotenv.config();
@@ -58,14 +61,10 @@ app.use('/api/chat',chatRoutes);
 
 
 
-const path = require('path');
-
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../resthere-frontend/build')));
-
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
+    console.log(`Received request for: ${req.url}`);
     res.sendFile(path.join(__dirname, '../resthere-frontend/build', 'index.html'));
-});
+  });
 
 // Place the catch-all route after all others
 app.get('*', (req, res) => {

@@ -4,7 +4,7 @@
   "main": "resthere-backend/Server.js",
   "scripts": {
     "start": "node resthere-backend/Server.js",
-    "heroku-postbuild": "cd resthere-frontend && npm install && npm run build"
+    "heroku-postbuild": "cd ../resthere-frontend && npm install && npm run build"
   },
   "engines": {
     "node": "20.x",
