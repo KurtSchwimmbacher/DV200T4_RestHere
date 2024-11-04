@@ -1,7 +1,7 @@
 {
   "name": "resthere-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "Server.js",
   "scripts": {
     "start": "node Server.js",
     "heroku-postbuild": "cd resthere-frontend && npm install && npm run build"
