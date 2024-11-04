@@ -60,8 +60,24 @@ app.use('/api/chat',chatRoutes);
 
 const path = require('path');
 
+
+
+app.get('/check-build', (req, res) => {
+    const buildPath = path.join(__dirname, '../resthere-frontend/build', 'index.html');
+    res.sendFile(buildPath, (err) => {
+        if (err) {
+            res.status(err.status).end();
+        } else {
+            console.log('Index.html served successfully!');
+        }
+    });
+});
+
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../resthere-frontend/build')));
+const buildPath = path.join(__dirname, '../resthere-frontend/build');
+console.log('Build path:', buildPath);
+app.use(express.static(buildPath));
+
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../resthere-frontend/build', 'index.html'));
