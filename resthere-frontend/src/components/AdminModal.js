@@ -64,7 +64,7 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
         // if not editing
         else{
             try {
-                const response = await axios.post('http://localhost:5000/api/resource/create', {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/resource/create`, {
                     title,
                     content,
                     user: userID, 
@@ -92,7 +92,7 @@ const AdminModal = ({ show, handleClose ,resourceData }) => {
     const handleDelete = async (e) => {
         if (resourceData._id) {
             try {
-                const response = await axios.delete(`http://localhost:5000/api/resource/delete/${resourceData._id}`);
+                const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/resource/delete/${resourceData._id}`);
                 setAlertModalMessage(response.data.message);
                 setShowAlertModal(true);
                 
