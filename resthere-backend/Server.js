@@ -10,6 +10,9 @@ const resourceRoutes = require('./routes/ResourcesRoutes');
 const professionalRoutes = require('./routes/ProfessionalRoutes');
 const chatRoutes = require('./routes/ChatRoutes');
 
+const path = require('path');
+
+
 dotenv.config();
 
 const app = express();
