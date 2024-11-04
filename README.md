@@ -1,6 +1,8 @@
 ![ClearView Header Image](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/ReadMe_Logo.png)
 
 - - - -
+### GCP Deployment Link
+https://resthere-440419.oa.r.appspot.com/
 
 # About RestHere
 
@@ -165,7 +167,8 @@ npm run start
 
 
 ## Demonstration
-
+google drive link:
+https://drive.google.com/file/d/1zkDuEOmRgKu9LuaPXowRp27T2Fyj4M4f/view?usp=sharing
 
 ### License
 [MIT](LICENSE) © Kurt Schwimmbacher
