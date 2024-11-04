@@ -53,7 +53,7 @@ app.use('/api/professional',professionalRoutes);
 
 app.use('/api/chat',chatRoutes);
 
-app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+app.use(express.static(path.join(__dirname, 'resthere-frontend', 'build')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
 });
