@@ -168,6 +168,12 @@ npm run start
 ### Profile Page Mockup
 ![Profile Mockup](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/Mockups/Account_Mockup.png)
 
+## Technical Documents
+### ERD
+![ERD](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/deployHeroku/resthere-frontend/src/assets/Supporting_Docs/ER_Diagram.png)
+
+### User Flow Diagram
+![User Flow Diagram](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/deployHeroku/resthere-frontend/src/assets/Supporting_Docs/User_Flow_Diagram.png)
 
 ## Demonstration
 google drive link:
