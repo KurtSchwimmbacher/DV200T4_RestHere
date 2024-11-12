@@ -1,6 +1,48 @@
+# RestHere
+## Kurt Schwimmbacher 231002
+
 ![ClearView Header Image](https://github.com/KurtSchwimmbacher/DV200T4_RestHere/blob/main/resthere-frontend/src/assets/ReadMe_Logo.png)
 
 - - - -
+
+## Table of Contents
+
+1. [GCP Deployment Link](#gcp-deployment-link)
+2. [Heroku Deployment Link](#heroku-deployment-link)
+3. [About RestHere](#about-resthere)
+4. [Built With](#built-with)
+   - [Frontend](#frontend)
+   - [Backend](#backend)
+5. [How To Install](#how-to-install)
+6. [Features](#features)
+7. [UI Design](#ui-design)
+   - [Home Page](#home-page)
+   - [Login / Sign Up Page](#login--sign-up-page)
+   - [Account Page](#account-page)
+   - [Post Offcanvas and Resource Modal](#post-offcanvas-and-resource-modal)
+   - [Journal Page / Journal OffCanvas](#journal-page--journal-offcanvas)
+   - [Resource Page](#resource-page)
+   - [Forum Page](#forum-page)
+   - [Chat Page / Chat OffCanvas / Manage Professional Modal](#chat-page--chat-offcanvas--manage-professional-modal)
+8. [Development Process](#development-process)
+   - [Highlights](#highlights)
+   - [Challenges](#challenges)
+9. [Future Implementations](#future-implementations)
+10. [Mockups](#mockups)
+    - [Home Page Mockup](#home-page-mockup)
+    - [Journal Page Mockup](#journal-page-mockup)
+    - [Resources Page Mockup](#resources-page-mockup)
+    - [Forum Page Mockup](#forum-page-mockup)
+    - [Profile Page Mockup](#profile-page-mockup)
+11. [Technical Documents](#technical-documents)
+    - [ERD](#erd)
+    - [User Flow Diagram](#user-flow-diagram)
+12. [Demonstration](#demonstration)
+13. [License](#license)
+14. [Author](#author)
+15. [Contribution](#contribution)
+
+
 ### GCP Deployment Link
 https://resthere-440419.oa.r.appspot.com/
 
